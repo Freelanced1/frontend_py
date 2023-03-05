@@ -41,7 +41,7 @@ function App() {
                   <img src={firstImage} alt="" />
                 </div>
                 <div className="flex-column">
-                  <h3 className="slider-head">Fire Up Your Business With Us</h3>
+                  <h3 className="slider-head">Fire Up Your Business With Freelanced</h3>
                   <p className="slider-txt">
                     Are you one of the thousands of Iphone owners who has no
                     idea.{" "}
