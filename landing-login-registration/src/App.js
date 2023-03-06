@@ -4,7 +4,7 @@ import BNavbar from './components/BNavbar';
 import FNavbar from './components/FNavbar';
 import { BrowserRouter as Router, Routes, Route}
 	from 'react-router-dom';
-import Landing from './pages';
+import Landing from './landing';
 import LoginRegister from './pages/login-register';
 import Roles from './pages/selectrole';
 import BNavPage1 from './pages/buyer_navpage1';
