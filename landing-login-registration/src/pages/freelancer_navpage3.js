@@ -1,26 +1,27 @@
 import React, { useState } from 'react';
 import freelancer_uploads from './freelancer_uploads.gif';
 import { useNavigate } from 'react-router-dom';
+import './App.css';
 
 function Uploads() {
-  const [file, setFile] = useState(null);
-  const [websiteLink, setWebsiteLink] = useState('');
-  const [certifications, setCertifications] = useState('');
+  var [file, setFile] = useState(null);
+  var [websiteLink, setWebsiteLink] = useState('');
+  var [certifications, setCertifications] = useState('');
 
-  const navigate = useNavigate();
-  const handleFileChange = (event) => {
+  var navigate = useNavigate();
+  var handleFileChange = (event) => {
     setFile(event.target.files[0]);
   };
 
-  const handleWebsiteChange = (event) => {
+  var handleWebsiteChange = (event) => {
     setWebsiteLink(event.target.value);
   };
 
-  const handleCertificationsChange = (event) => {
+  var handleCertificationsChange = (event) => {
     setCertifications(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  var handleSubmit = (event) => {
     event.preventDefault();
     // TODO: handle form submission (e.g. upload file and submit data to server)
   };
@@ -33,18 +34,18 @@ function Uploads() {
       </div>
       <div>
         <label htmlFor="website">Website/Portfolio Link:</label>
-        <input type="text" id="website" value={websiteLink} onChange={handleWebsiteChange} placeholder="Enter website or portfolio link"/>
+        <input style={{marginTop:'50px'}}type="text" id="website" value={websiteLink} onChange={handleWebsiteChange} placeholder="Enter website or portfolio link"/>
       </div>
       <div>
         <label htmlFor="certifications">Certifications:</label>
-        <input type="text" id="certifications" value={certifications} onChange={handleCertificationsChange} placeholder="Enter your certifications"/>
+        <input style={{marginTop:'50px'}} type="text" id="certifications" value={certifications} onChange={handleCertificationsChange} placeholder="Enter your certifications"/>
       </div>
       <button style={{marginTop:'50px'}} type="submit" onClick={() => navigate("/freelancer_navpage4")} >Save & Continue</button>
     </form>
   );
 }
 
-const Image = () => {
+var Image = () => {
 	return (
 	  <div className='gif' style={{marginTop: '0px'}}>
 		<img src={freelancer_uploads} alt="freelancer uploads" />
@@ -52,7 +53,7 @@ const Image = () => {
 	);
   };
 
-const FNavPage3 = () => {
+var FNavPage3 = () => {
   return (
     <div>
       <div className='flex-container'>

@@ -3,13 +3,14 @@ import tele from "../assets/img/tel.png";
 import whats from "../assets/img/whats.png";
 import twi from "../assets/img/twitter.png";
 import insta from "../assets/img/insta.png";
+import logo from './freelanced_logo.gif'
 const Footer = () => {
   return (
     <div className="footer-bg ">
-      <div className="container">
+      <div >
         <div className="row pt-5 pb-5">
           <div className="col-12 col-md-3 d-flex flex-column">
-            <h1>LOGO</h1>
+          <img src={logo}></img>
             <div className="d-flex flex-row">
             <div>
                   <img src={tele} alt="" />

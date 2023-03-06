@@ -3,30 +3,30 @@ import budget from './budget.gif';
 import { useNavigate } from 'react-router-dom';
 
 function TimelineBudgetForm() {
-  const [timeline, setTimeline] = useState(null);
-  const [deadline, setDeadline] = useState('');
-  const [budget, setBudget] = useState(null);
-  const [budgetValue, setBudgetValue] = useState('');
+  var [timeline, setTimeline] = useState(null);
+  var [deadline, setDeadline] = useState('');
+  var [budget, setBudget] = useState(null);
+  var [budgetValue, setBudgetValue] = useState('');
 
-  const navigate = useNavigate();
+  var navigate = useNavigate();
 
-  const handleTimelineChange = (option) => {
+  var handleTimelineChange = (option) => {
     setTimeline(option);
   };
 
-  const handleDeadlineChange = (event) => {
+  var handleDeadlineChange = (event) => {
     setDeadline(event.target.value);
   };
 
-  const handleBudgetChange = (option) => {
+  var handleBudgetChange = (option) => {
     setBudget(option);
   };
 
-  const handleBudgetValueChange = (event) => {
+  var handleBudgetValueChange = (event) => {
     setBudgetValue(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  var handleSubmit = (event) => {
     event.preventDefault();
     if (timeline && (timeline === 'flexible' || (timeline === 'deadline' && deadline))) {
       if (budget && (budget === 'flexible' || (budget === 'budget' && budgetValue))) {
@@ -56,7 +56,7 @@ function TimelineBudgetForm() {
             Flexible
           </button>
           <button
-            type="button"
+            type="button" style={{marginRight:'20px'}}
             onClick={() => handleTimelineChange('deadline')}
             className={timeline === 'deadline' ? 'active' : ''}
           >
@@ -84,7 +84,7 @@ function TimelineBudgetForm() {
             Flexible
           </button>
           <button 
-            type="button"
+            type="button" style={{marginRight:'20px'}}
             onClick={() => handleBudgetChange('budget')}
             className={budget === 'budget' ? 'active' : ''}
           >
@@ -92,7 +92,7 @@ function TimelineBudgetForm() {
           </button>
           {budget === 'budget' && (
             <label >Budget:<span className="required">*</span>
-            <input style={{marginLeft:'20px'}}
+            <input style={{marginLeft:'0px'}}
               type="number"
               value={budgetValue}
               onChange={handleBudgetValueChange} placeholder="Enter your budget"
@@ -109,7 +109,7 @@ function TimelineBudgetForm() {
 }
 
 
-const Image = () => {
+var Image = () => {
 	return (
 	  <div className='gif' style={{marginTop: '0px'}}>
 		<img src={budget} alt="budget and timeline" />
@@ -117,7 +117,7 @@ const Image = () => {
 	);
   };
 
-const BNavPage3 = () => {
+var BNavPage3 = () => {
   return (
     <div>
       <div className='flex-container'>

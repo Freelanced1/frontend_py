@@ -3,24 +3,24 @@ import freelancer_security from './freelancer_security.gif';
 import { useNavigate } from 'react-router-dom';
 
 function SecurityInfoForm() {
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [emailError, setEmailError] = useState(null);
-  const [phoneError, setPhoneError] = useState(null);
+  var [email, setEmail] = useState('');
+  var [phone, setPhone] = useState('');
+  var [emailError, setEmailError] = useState(null);
+  var [phoneError, setPhoneError] = useState(null);
 
-  const navigate = useNavigate();
+  var navigate = useNavigate();
 
-  const handleEmailChange = (event) => {
+  var handleEmailChange = (event) => {
     setEmail(event.target.value);
     setEmailError(null);
   };
 
-  const handlePhoneChange = (event) => {
+  var handlePhoneChange = (event) => {
     setPhone(event.target.value);
     setPhoneError(null);
   };
 
-  const handleSubmit = (event) => {
+  var handleSubmit = (event) => {
     event.preventDefault();
     let isValid = true;
     // validate email
@@ -48,7 +48,7 @@ function SecurityInfoForm() {
       </div>
       <div>
         <label htmlFor="phone">Phone Number:<span className="required">*</span></label>
-        <input type="tel" id="phone" value={phone} onChange={handlePhoneChange}  placeholder="Enter your phone number"/>
+        <input style={{marginTop:'50px'}} type="tel" id="phone" value={phone} onChange={handlePhoneChange}  placeholder="Enter your phone number"/>
         {phoneError && <p>{phoneError}</p>}
       </div>
       <button type="submit" style={{ marginTop: '50px'}}>Submit</button>
@@ -57,7 +57,7 @@ function SecurityInfoForm() {
 }
 
 
-const Image = () => {
+var Image = () => {
 	return (
 	  <div className='gif' style={{height:'150px'}}>
 		<img style={{height:'400px', marginLeft: '120px'}} src={freelancer_security} alt="freelancer security" />
@@ -65,7 +65,7 @@ const Image = () => {
 	);
   };
 
-const FNavPage4 = () => {
+var FNavPage4 = () => {
   return (
     <div>
       <div className='flex-container'>

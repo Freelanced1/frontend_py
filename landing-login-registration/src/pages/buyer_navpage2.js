@@ -4,21 +4,21 @@ import jobdesc from './jobdesc.gif';
 import { useNavigate } from 'react-router-dom';
 
 function TaskForm() {
-  const [projectArea, setprojectArea] = useState("");
-  const [description, setDescription] = useState("");
-  const [skillset, setSkillset] = useState("");
-  const [proficiency, setProficiency] = useState("");
-  const [file, setFile] = useState(null);
+  var [projectArea, setprojectArea] = useState("");
+  var [description, setDescription] = useState("");
+  var [skillset, setSkillset] = useState("");
+  var [proficiency, setProficiency] = useState("");
+  var [file, setFile] = useState(null);
 
-  const ProjectOptions = ['Software Engineer', 'Web Developer', 'Mobile App Developer', 'Data Scientist', 'Artficial Intelligence', 'Cyber Security', 'UI/UX Designer', 'Graphic Designer', 'Data Entry', 'Content Writer', 'Copywriter', 'Social Media Manager', 'SEO Specialist', 'Digital Marketer', 'Video Editor', 'other']
+  var ProjectOptions = ['Software Engineer', 'Web Developer', 'Mobile App Developer', 'Data Scientist', 'Artficial Intelligence', 'Cyber Security', 'UI/UX Designer', 'Graphic Designer', 'Data Entry', 'Content Writer', 'Copywriter', 'Social Media Manager', 'SEO Specialist', 'Digital Marketer', 'Video Editor', 'other']
 
-  const navigate = useNavigate();
+  var navigate = useNavigate();
 
-  const handleFileChange = (event) => {
+  var handleFileChange = (event) => {
     setFile(event.target.files[0]);
   };
 
-  const handleSubmit = (event) => {
+  var handleSubmit = (event) => {
     event.preventDefault(); if (!projectArea || !description || !proficiency) {
       alert('Please fill in all required fields.');
       return;
@@ -41,18 +41,19 @@ function TaskForm() {
               </option>
             ))}
           </select>
+        <div>
       <label style={{marginTop:'30px'}}>
         Project Details:<span className="required">*</span></label>
         <textarea
           value={description}
           onChange={(event) => setDescription(event.target.value)} placeholder="Enter a detailed description of your project"
-        />
+        /></div>
         <div>
         <label style={{marginTop:'30px'}} htmlFor="file">Upload Relevant Documents:</label>
         <input type="file" id="file" multiple onChange={handleFileChange} />
       </div>
 
-      <label style={{marginTop:'30px'}}>
+      <label style={{marginTop:'30px', marginBottom:'30px'}}>
         List Specific Skills Required if any:</label>
         <input
           type="text"
@@ -74,7 +75,7 @@ function TaskForm() {
   );
 }
 
-const Image = () => {
+var Image = () => {
   return (
     <div className='gif' style={{marginTop: '40px'}}>
       <img src={jobdesc} alt="job description" />
@@ -84,7 +85,7 @@ const Image = () => {
 
 
 
-const BNavPage2 = () => {
+var BNavPage2 = () => {
   return (
     <div>
       <div className='flex-container'>

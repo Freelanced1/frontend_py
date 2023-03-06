@@ -3,24 +3,24 @@ import freelancer_security from './freelancer_security.gif';
 import { useNavigate } from 'react-router-dom';
 
 function SecurityInfoForm() {
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [emailError, setEmailError] = useState(null);
-  const [phoneError, setPhoneError] = useState(null);
+  var [email, setEmail] = useState('');
+  var [phone, setPhone] = useState('');
+  var [emailError, setEmailError] = useState(null);
+  var [phoneError, setPhoneError] = useState(null);
 
-  const navigate = useNavigate();
+  var navigate = useNavigate();
 
-  const handleEmailChange = (event) => {
+  var handleEmailChange = (event) => {
     setEmail(event.target.value);
     setEmailError(null);
   };
 
-  const handlePhoneChange = (event) => {
+  var handlePhoneChange = (event) => {
     setPhone(event.target.value);
     setPhoneError(null);
   };
 
-  const handleSubmit = (event) => {
+  var handleSubmit = (event) => {
     event.preventDefault();
     let isValid = true;
     // validate email
@@ -43,7 +43,7 @@ function SecurityInfoForm() {
     <form className='form-main' onSubmit={handleSubmit}>
       <div>
         <label htmlFor="email">Email:<span className="required">*</span></label>
-        <input type="email" id="email" value={email} onChange={handleEmailChange} placeholder="Enter your email id"/>
+        <input style={{marginBottom:'30px'}} type="email" id="email" value={email} onChange={handleEmailChange} placeholder="Enter your email id"/>
         {emailError && <p>{emailError}</p>}
       </div>
       <div>
@@ -57,7 +57,7 @@ function SecurityInfoForm() {
 }
 
 
-const Image = () => {
+var Image = () => {
 	return (
 	  <div className='gif' style={{height:'150px'}}>
 		<img style={{height:'400px', marginLeft: '120px'}} src={freelancer_security} alt="freelancer security" />
@@ -65,7 +65,7 @@ const Image = () => {
 	);
   };
 
-const BNavPage4 = () => {
+var BNavPage4 = () => {
   return (
     <div>
       <div className='flex-container'>

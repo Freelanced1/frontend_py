@@ -6,13 +6,14 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import logo from './freelanced_logo.gif'
 
 function NavbarComponent() {
   return (
     <Navbar bg="light" expand="lg">
-      <Container>
         <Navbar.Brand href="#home" className="nav-logo">
-          LOGO
+          <img src={logo}></img>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -45,16 +46,16 @@ function NavbarComponent() {
             <Nav.Link className="nav-item pe-5" href="#home">
               Explore
             </Nav.Link>
-            <Nav.Link className="nav-item pe-5" href="#link">
-              Log in
+            <Nav.Link as={Link} to="/login-register" className="nav-item pe-5">
+            <Button variant="outline-primary" className="nav-btn" size="sm">
+              Log in 
+            </Button>
             </Nav.Link>
 
-            <Button variant="outline-primary" className="nav-btn" size="sm">
-              Sign Up
-            </Button>
+            
           </Nav>
         </Navbar.Collapse>
-      </Container>
+      
     </Navbar>
   );
 }

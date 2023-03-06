@@ -21,7 +21,7 @@ import Footer from "./shared/Footer";
 
 function Landing() {
   return (
-    <div className="App">
+    <div style={{marginLeft:'100px', marginRight: '100px'}}>
       <NavbarComponent />
       <div className="container-fluid">
         <div className="mb-5">
@@ -241,7 +241,7 @@ function Landing() {
         </div>
       </div>
 
-      <div className="container">
+      <div >
         <div className="row pb-3 justify-between pt-3">
           <div className="col-md-6 col-12">
             <img src={secondImage} alt="" />

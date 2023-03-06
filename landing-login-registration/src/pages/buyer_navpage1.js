@@ -6,26 +6,26 @@ import { useNavigate } from 'react-router-dom';
 
 
 function RegistrationForm() {  
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [profilePicture, setProfilePicture] = useState(null);
-  const [description, setDescription] = useState('');
-  const [language, setLanguage] = useState('');
-  const [occupationArea, setOccupationArea] = useState('');
+  var [firstName, setFirstName] = useState('');
+  var [lastName, setLastName] = useState('');
+  var [profilePicture, setProfilePicture] = useState(null);
+  var [description, setDescription] = useState('');
+  var [language, setLanguage] = useState('');
+  var [occupationArea, setOccupationArea] = useState('');
 
-  const occupationOptions = ['Software Engineer', 'Web Developer', 'Mobile App Developer', 'Data Scientist', 'Artficial Intelligence', 'Cyber Security', 'UI/UX Designer', 'Graphic Designer', 'Data Entry', 'Content Writer', 'Copywriter', 'Social Media Manager', 'SEO Specialist', 'Digital Marketer', 'Video Editor', 'other']
+  var occupationOptions = ['Software Engineer', 'Web Developer', 'Mobile App Developer', 'Data Scientist', 'Artficial Intelligence', 'Cyber Security', 'UI/UX Designer', 'Graphic Designer', 'Data Entry', 'Content Writer', 'Copywriter', 'Social Media Manager', 'SEO Specialist', 'Digital Marketer', 'Video Editor', 'other']
 
-  const navigate = useNavigate();
+  var navigate = useNavigate();
   
-  const handleFileChange = (e) => {
+  var handleFileChange = (e) => {
     setProfilePicture(e.target.files[0]);
   };
 
-  const handleSubmit = (e) => {
+  var handleSubmit = (e) => {
     e.preventDefault();
     if (firstName && profilePicture && description && occupationArea && language) {
     // Send form data to server
-    const formData = new FormData();
+    var formData = new FormData();
     formData.append('firstName', firstName);
     formData.append('lastName', lastName);
     formData.append('profilePicture', profilePicture);
@@ -55,11 +55,11 @@ function RegistrationForm() {
       </div>
       <div>
         <label htmlFor="profilePicture">Profile Picture:<span className="required">*</span></label>
-        <input type="file" id="profilePicture" onChange={handleFileChange} />
+        <input style={{marginTop:'50px'}} type="file" id="profilePicture" onChange={handleFileChange} />
       </div>
       <div style={{marginBottom:'30px'}}>
         <label htmlFor="description">Breif Description:<span className="required">*</span></label>
-        <textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Enter a breif description about your proffessional journey, interesting projects and skills" />
+        <textarea style={{marginTop:'50px'}} id="description" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Enter a breif description about your proffessional journey, interesting projects and skills" />
       </div>
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
         <div style={{ marginRight: '50px' }}>
@@ -90,7 +90,7 @@ function RegistrationForm() {
   );
 }
 
-const Image = () => {
+var Image = () => {
   return (
     <div className='gif'>
       <img src={freelancer} alt="freelancer" />
@@ -100,7 +100,7 @@ const Image = () => {
 
 
 
-const BNavPage1 = () => {
+var BNavPage1 = () => {
   return (
     <div>
       <div className='flex-container'>

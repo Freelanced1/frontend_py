@@ -4,36 +4,36 @@ import freelancer_skills from './freelancer_skills.gif';
 import { useNavigate } from 'react-router-dom';
 
 function TechnicalSkillsForm() {
-  const [skills, setSkills] = useState([{ name: "", level: "" }]);
+  var [skills, setSkills] = useState([{ name: "", level: "" }]);
 
-  const navigate = useNavigate();
+  var navigate = useNavigate();
   
-  const handleSkillNameChange = (event, index) => {
-    const newSkills = [...skills];
+  var handleSkillNameChange = (event, index) => {
+    var newSkills = [...skills];
     newSkills[index].name = event.target.value;
     setSkills(newSkills);
   };
 
-  const handleSkillLevelChange = (event, index) => {
-    const newSkills = [...skills];
+  var handleSkillLevelChange = (event, index) => {
+    var newSkills = [...skills];
     newSkills[index].level = event.target.value;
     setSkills(newSkills);
   };
 
-  const handleAddSkill = () => {
+  var handleAddSkill = () => {
     setSkills([...skills, { name: "", level: "" }]);
   };
 
-  const handleRemoveSkill = (index) => {
-    const newSkills = [...skills];
+  var handleRemoveSkill = (index) => {
+    var newSkills = [...skills];
     newSkills.splice(index, 1);
     setSkills(newSkills);
   };
 
-  const handleSubmit = (event) => {
+  var handleSubmit = (event) => {
     event.preventDefault();
      // check if all fields are filled
-     const filledFields = skills.every(skill => skill.name && skill.level);
+     var filledFields = skills.every(skill => skill.name && skill.level);
      if (!filledFields) {
        alert("Please fill all fields before submitting.");
        return;
@@ -74,13 +74,13 @@ function TechnicalSkillsForm() {
 				</select>
 			</div>
 			
-			<button type="button" style={{marginTop:'20px', maxHeight: '10px'}} onClick={handleAddSkill}>
-        	Add Skill
+			<button type="button" style={{marginTop:'20px', height: '50px', marginRight:'20px'}} onClick={handleAddSkill}>
+        	Add
       	</button>
 		
 		{skills.length > 1 && (
-			<button type="button" style={{marginTop:'20px',maxHeight: '10px'}} onClick={() => handleRemoveSkill(index)}>
-				Remove Skill
+			<button type="button" style={{marginTop:'20px',height: '50px'}} onClick={() => handleRemoveSkill(index)}>
+				Remove
 			</button>
 		)}
 
@@ -101,7 +101,7 @@ function TechnicalSkillsForm() {
 
 
 
-const Image = () => {
+var Image = () => {
   return (
     <div className='gif' style={{marginTop: '40px'}}>
       <img src={freelancer_skills} alt="freelancer skills" />
@@ -111,7 +111,7 @@ const Image = () => {
 
 
 
-const FNavPage1 = () => {
+var FNavPage1 = () => {
   return (
     <div>
       <div className='flex-container'>

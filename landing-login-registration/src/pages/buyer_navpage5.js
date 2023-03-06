@@ -3,7 +3,7 @@ import freelancer_finish from './freelancer_finish.gif';
 import { useNavigate } from 'react-router-dom';
 
 
-const Image = () => {
+var Image = () => {
 	return (
 	  <div>
 		<img style={{height:'400px', marginLeft: '10px'}} src={freelancer_finish} alt="freelancer finish" />
@@ -11,9 +11,9 @@ const Image = () => {
 	);
   };
 
-const BNavPage5 = () => {
+var BNavPage5 = () => {
   
-const navigate = useNavigate();
+var navigate = useNavigate();
   return (
     <div className='flex-container'>
         <Image/>
