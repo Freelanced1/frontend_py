@@ -7,16 +7,8 @@ import { BrowserRouter as Router, Routes, Route}
 import Landing from './landing';
 import LoginRegister from './pages/login-register';
 import Roles from './pages/selectrole';
-import BNavPage1 from './pages/buyer_navpage1';
-import BNavPage2 from './pages/buyer_navpage2';
-import BNavPage3 from './pages/buyer_navpage3';
-import BNavPage4 from './pages/buyer_navpage4';
-import BNavPage5 from './pages/buyer_navpage5';
-import FNavPage1 from './pages/freelancer_navpage1';
-import FNavPage2 from './pages/freelancer_navpage2';
-import FNavPage3 from './pages/freelancer_navpage3';
-import FNavPage4 from './pages/freelancer_navpage4';
-import FNavPage5 from './pages/freelancer_navpage5';
+import {BNavPage1, BNavPage2, BNavPage3, BNavPage4, BNavPage5} from './pages/buyer_navpage';
+import {FNavPage1, FNavPage2, FNavPage3, FNavPage4, FNavPage5} from './pages/freelancer_navpage';
 
 
 function App() {
