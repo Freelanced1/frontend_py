@@ -7,21 +7,7 @@ import freelancer_security from './freelancer_security.gif';
 import freelancer_finish from './freelancer_finish.gif';
 import { useNavigate } from 'react-router-dom';
 
-var newuser_formData = new FormData();
-var newusermongo_formData = new FormData();
-
-export function FNavPage1() {  
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [profilePicture, setProfilePicture] = useState(null);
-  const [description, setDescription] = useState('');
-  const [language, setLanguage] = useState('');
-  const [occupationArea, setOccupationArea] = useState('');
-  const [yearsOfExperience, setyearsOfExperience] = useState('');
-  const [country, setCountry] = useState('');
-  const [university, setUniversity] = useState('');
-  const [degree, setDegree] = useState('');
-  const [yearCompleted, setYearCompleted] = useState('');
+export function FNavPage1({FformData, FformData_mongo, handleChange_F, handleChange_F_mongo,addListItem_F}) {  
 
   const occupationOptions = ['Software Engineer', 'Web Developer', 'Mobile App Developer', 'Data Scientist', 'Artficial Intelligence', 'Cyber Security', 'UI/UX Designer', 'Graphic Designer', 'Data Entry', 'Content Writer', 'Copywriter', 'Social Media Manager', 'SEO Specialist', 'Digital Marketer', 'Video Editor', 'other']
   const countries = [    "Australia",    "Brazil",    "Canada",    "China",    "France",    "Germany",    "India",    "Indonesia",    "Italy",    "Japan",    "Mexico",    "Netherlands",    "Russia",    "Saudi Arabia",    "South Africa",    "South Korea",    "Spain",    "Turkey",    "United Kingdom",    "United States", "other"];
@@ -29,35 +15,14 @@ export function FNavPage1() {
   const years =[2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003]
 
   const navigate = useNavigate();
-  
-  const handleFileChange = (e) => {
-    setProfilePicture(e.target.files[0]);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Check if all required fields are filled
-if (!firstName || !profilePicture || !description || !language || !occupationArea) {
+if (!FformData.firstname || !FformData_mongo.profile_pic || !FformData_mongo.description || !FformData_mongo.language || !FformData_mongo.occupation) {
   alert('Please fill all required fields');
   return;
   }
-  // Send form data to server
-  const formData = new FormData();
-  formData.append('firstName', firstName);
-  formData.append('lastName', lastName);
-  formData.append('profilePicture', profilePicture);
-  formData.append('description', description);
-  formData.append('language', language);
-  formData.append('occupationArea',occupationArea);
-  formData.append('yearsOfExperience',yearsOfExperience);
-  formData.append('country',country);
-  formData.append('university',university);
-  formData.append('degree',degree);
-  formData.append('yearCompleted',yearCompleted);
-
-
-    // Send formData object to server using fetch or axios
-    console.log(formData);
     navigate("/freelancer_navpage2");
   };
 
@@ -76,27 +41,28 @@ if (!firstName || !profilePicture || !description || !language || !occupationAre
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
         <div style={{ marginRight: '30px' }}>
           <label htmlFor="firstName">First Name:<span className="required">*</span></label>
-          <input type="text" id="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="Enter your first name" />
+          <input type="text" id="firstname" value={FformData.firstname} onChange={handleChange_F} placeholder="Enter your first name" />
         </div>
         <div style={{ marginRight: '30px' }}>
           <label htmlFor="lastName">Last Name:</label>
-          <input type="text" id="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder="Enter your last name" />
+          <input type="text" id="lastname" value={FformData.lastName} onChange={handleChange_F} placeholder="Enter your last name" />
         </div>
         <div>
         <label htmlFor="profilePicture">Profile Picture:<span className="required">*</span></label>
-        <input type="file" id="profilePicture" onChange={handleFileChange} />
+        <input type="file" id="profile_pic" value={FformData_mongo.profi} onChange={handleChange_F_mongo} />
       </div>
+
     </div>
 
     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
       <div style={{marginBottom:'30px'}}>
         <label htmlFor="description">Breif Description:<span className="required">*</span></label>
-        <textarea style={{width:'450px'}} id="description" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Enter a breif description about your proffessional journey, interesting projects and skills" />
+        <textarea style={{width:'450px'}} id="description" value={FformData_mongo.description} onChange={handleChange_F_mongo} placeholder="Enter a breif description about your proffessional journey, interesting projects and skills" />
       </div>
      
       <div >
         <label  style={{marginLeft:'50px'}} htmlFor="language">Preferred Language:<span className="required">*</span></label>
-        <select  style={{marginLeft:'50px'}} id="language" value={language} onChange={(e) => setLanguage(e.target.value)} placeholder="Select you preferred language" >
+        <select  style={{marginLeft:'50px'}} id="language" value={FformData_mongo.language} onChange={handleChange_F_mongo} placeholder="Select you preferred language" >
           <option value="">-- Please Select --</option>
           <option value="English">English</option>
           <option value="Spanish">Spanish</option>
@@ -110,7 +76,7 @@ if (!firstName || !profilePicture || !description || !language || !occupationAre
     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
       <div >
         <label htmlFor="occupationArea"> Your Occupation Area: <span className="required">*</span></label>
-        <select value={occupationArea} onChange={(e) => setOccupationArea(e.target.value)}>
+        <select id="occupation" value={FformData_mongo.occupation} onChange={handleChange_F_mongo}>
           <option value="">--Please choose an option--</option>
           {occupationOptions.map((option) => (
             <option key={option} value={option}>
@@ -122,9 +88,9 @@ if (!firstName || !profilePicture || !description || !language || !occupationAre
       <div style={{ marginLeft: '30px', marginTop: '45px'}}>
           <label htmlFor="yearsOfExperience"> Years of Experience: <span className="required">*</span></label>
           <input
-            type="number"
-            value={yearsOfExperience}
-            onChange={(e) => setyearsOfExperience(e.target.value)} placeholder="Enter years of experience"
+            type="number" id="experience"
+            value={FformData_mongo.experience}
+            onChange={handleChange_F_mongo} placeholder="Enter years of experience"
           />
         </div>
       </div>
@@ -133,11 +99,11 @@ if (!firstName || !profilePicture || !description || !language || !occupationAre
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <div>
           <label> University:  <span className="required">*</span></label>
-            <input style={{marginBottom: '50px' }} type="text" value={university} onChange={(event) => setUniversity(event.target.value)} placeholder="Enter University"/>
+            <input style={{marginBottom: '50px' }} type="text" id="university" value={FformData_mongo.university} onChange={handleChange_F_mongo} placeholder="Enter University"/>
         </div>
         <div>
           <label style={{marginLeft: '30px' }}> Degree:  <span className="required">*</span></label>
-            <select style={{marginLeft: '30px' }} value={degree} onChange={(event) => setDegree(event.target.value)}>
+            <select style={{marginLeft: '30px' }} id="uni_degree" value={FformData_mongo.uni_degree} onChange={handleChange_F_mongo}>
               <option value="">-- Select Degree --</option>
               {degrees.map((d) => (
                 <option key={d} value={d}>{d}</option>
@@ -147,7 +113,7 @@ if (!firstName || !profilePicture || !description || !language || !occupationAre
 
         <div style={{marginLeft: '30px' }}>
         <label> Country: <span className="required">*</span> </label>
-            <select value={country} onChange={(event) => setCountry(event.target.value)}>
+            <select id="uni_country" value={FformData_mongo.uni_country} onChange={handleChange_F_mongo}>
               <option value="">-- Select Country --</option>
               {countries.map((c) => (
                 <option key={c} value={c}>{c}</option>
@@ -157,7 +123,7 @@ if (!firstName || !profilePicture || !description || !language || !occupationAre
 
         <div style={{marginLeft:'30px'}}>
         <label> Year Completed:  <span className="required">*</span></label>
-        <select value={yearCompleted} onChange={(event) => setYearCompleted(event.target.value)}>
+        <select id="uni_grad_date" value={FformData_mongo.uni_grad_date} onChange={handleChange_F_mongo}>
           <option value="">-- Select Year --</option>
           {years.map((c) => (
             <option key={c} value={c}>{c}</option>
@@ -174,7 +140,7 @@ if (!firstName || !profilePicture || !description || !language || !occupationAre
 }
 
 
-export function FNavPage2() {
+export function FNavPage2({FformData, FformData_mongo, handleChange_F, handleChange_F_mongo,addListItem_F}) {
   var [skills, setSkills] = useState([{ name: "", level: "" }]);
 
   var navigate = useNavigate();
@@ -203,14 +169,17 @@ export function FNavPage2() {
 
   var handleSubmit = (event) => {
     event.preventDefault();
+    
      // check if all fields are filled
      var filledFields = skills.every(skill => skill.name && skill.level);
      if (!filledFields) {
        alert("Please fill all fields before submitting.");
        return;
      }
-     
-     console.log(skills);
+     const skillNames = skills.map(skill => skill.name);
+     const skillLevels = skills.map(skill => skill.level);
+     FformData_mongo.skills=skillNames;
+     FformData_mongo.proficency=skillLevels;
      // submit form data to server
      navigate("/freelancer_navpage3");
    };
@@ -277,23 +246,9 @@ export function FNavPage2() {
   );
 }
 
-export function FNavPage3() {
-  var [file, setFile] = useState(null);
-  var [websiteLink, setWebsiteLink] = useState('');
-  var [certifications, setCertifications] = useState('');
+export function FNavPage3({FformData, FformData_mongo, handleChange_F, handleChange_F_mongo,addListItem_F}) {
 
   var navigate = useNavigate();
-  var handleFileChange = (event) => {
-    setFile(event.target.files[0]);
-  };
-
-  var handleWebsiteChange = (event) => {
-    setWebsiteLink(event.target.value);
-  };
-
-  var handleCertificationsChange = (event) => {
-    setCertifications(event.target.value);
-  };
 
   var handleSubmit = (event) => {
     event.preventDefault();
@@ -314,15 +269,15 @@ export function FNavPage3() {
     <form className='form-main' onSubmit={handleSubmit}>
       <div>
         <label htmlFor="file">Upload Work Samples:</label>
-        <input type="file" id="file" multiple onChange={handleFileChange} />
+        <input type="file" id="worksamples" value={FformData_mongo.worksamples} multiple onChange={handleChange_F_mongo} />
       </div>
       <div>
         <label htmlFor="website">Website/Portfolio Link:</label>
-        <input style={{marginTop:'50px'}}type="text" id="website" value={websiteLink} onChange={handleWebsiteChange} placeholder="Enter website or portfolio link"/>
+        <input style={{marginTop:'50px'}}type="text" id="worksamples" value={FformData_mongo.worksamples} onChange={handleChange_F_mongo} placeholder="Enter website or portfolio link"/>
       </div>
       <div>
         <label htmlFor="certifications">Certifications:</label>
-        <input style={{marginTop:'50px'}} type="text" id="certifications" value={certifications} onChange={handleCertificationsChange} placeholder="Enter your certifications"/>
+        <input style={{marginTop:'50px'}} type="text" id="certificates" value={FformData_mongo.certificates} onChange={handleChange_F_mongo} placeholder="Enter your certifications"/>
       </div>
       <button style={{marginTop:'50px'}} type="submit" onClick={() => navigate("/freelancer_navpage4")} >Save & Continue</button>
     </form>
@@ -331,34 +286,22 @@ export function FNavPage3() {
   );
 }
 
-export function FNavPage4() {
-  var [email, setEmail] = useState('');
-  var [phone, setPhone] = useState('');
+export function FNavPage4({FformData, FformData_mongo, handleChange_F, handleChange_F_mongo,addListItem_F}) {
   var [emailError, setEmailError] = useState(null);
   var [phoneError, setPhoneError] = useState(null);
 
   var navigate = useNavigate();
 
-  var handleEmailChange = (event) => {
-    setEmail(event.target.value);
-    setEmailError(null);
-  };
-
-  var handlePhoneChange = (event) => {
-    setPhone(event.target.value);
-    setPhoneError(null);
-  };
-
   var handleSubmit = (event) => {
     event.preventDefault();
     let isValid = true;
     // validate email
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!FformData_mongo.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(FformData_mongo.email)) {
       setEmailError('Please enter a valid email address');
       isValid = false;
     }
     // validate phone number
-    if (!phone || !/^\d{10}$/.test(phone)) {
+    if (!FformData_mongo.phone || !/^\d{10}$/.test(FformData_mongo.phone)) {
       setPhoneError('Please enter a valid 10-digit phone number');
       isValid = false;
     }
@@ -382,12 +325,12 @@ export function FNavPage4() {
     <form className='form-main' onSubmit={handleSubmit}>
       <div>
         <label htmlFor="email">Email:<span className="required">*</span></label>
-        <input type="email" id="email" value={email} onChange={handleEmailChange} placeholder="Enter your email id"/>
+        <input type="email" id="email" value={FformData_mongo.email} onChange={handleChange_F_mongo} placeholder="Enter your email id"/>
         {emailError && <p>{emailError}</p>}
       </div>
       <div>
         <label htmlFor="phone">Phone Number:<span className="required">*</span></label>
-        <input style={{marginTop:'50px'}} type="tel" id="phone" value={phone} onChange={handlePhoneChange}  placeholder="Enter your phone number"/>
+        <input style={{marginTop:'50px'}} type="tel" id="phone" value={FformData_mongo.phone} onChange={handleChange_F_mongo}  placeholder="Enter your phone number"/>
         {phoneError && <p>{phoneError}</p>}
       </div>
       <button type="submit" style={{ marginTop: '50px'}}>Submit</button>
@@ -397,50 +340,65 @@ export function FNavPage4() {
   );
 }
 
-export function FNavPage5 () {
+export function FNavPage5 ({FformData, FformData_mongo, handleChange_F, handleChange_F_mongo,addListItem_F}) {
   var navigate = useNavigate();
 
   var handleSubmit = (event) => {
     event.preventDefault();
-      fetch('https://freelancedbackend.azurewebsites.net/newusermongo', {
+    FformData.email = FformData_mongo.email
+    
+    
+      fetch('https://freelancedbackend.azurewebsites.net/newusermongo/', {
         method: 'POST',
-        body: newusermongo_formData
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(FformData_mongo)
       })
       .then(response => {
         if (response.ok) {
+          console.log(response)
           return response.json();
         } else {
           throw new Error('Network response was not ok');
         }
       })
       .then(data => {
-        console.log(data);
+        console.log(JSON.stringify(FformData_mongo))
+        console.log('Data sent successfully');
         navigate('/');
       })
 
       .catch(error => {
         console.error('There was a problem submitting the form', error);
       });
-
+    
+      
       fetch('https://freelancedbackend.azurewebsites.net/newuser', {
         method: 'POST',
-        body: newuser_formData
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(FformData)
       })
       .then(response => {
         if (response.ok) {
+          console.log(response)
           return response.json();
         } else {
           throw new Error('Network response was not ok');
         }
       })
       .then(data => {
-        console.log(data);
+        console.log(JSON.stringify(FformData))
+        console.log('Data sent successfully');
         navigate('/');
       })
 
       .catch(error => {
         console.error('There was a problem submitting the form', error);
       });
+      
 };
 
     return (
@@ -452,7 +410,7 @@ export function FNavPage5 () {
               <h1 className='heading'>Thank You!</h1>
               <p className='text'>Thank you for taking the time to fill out the form! We've saved your information and will keep it on file. </p>
               <p className='text'>If we find a buyer that matches your skills and experience, we'll be in touch!</p>
-              <button type="submit" onClick={() => navigate("/")} style={{ marginLeft:"50px", marginTop: '50px' }}>Finish</button>
+              <button type="submit" onClick={handleSubmit} style={{ marginLeft:"50px", marginTop: '50px' }}>Finish</button>
           </div> 
       </div>
   

@@ -7,7 +7,7 @@ import freelancer_security from './freelancer_security.gif';
 import freelancer_finish from './freelancer_finish.gif';
 import { useNavigate } from 'react-router-dom';
 
-export function BNavPage1({BformData, BformData_mongo, handleChange_B, handleChange_B_mongo}) {  
+export function BNavPage1({BformData, BformData_mongo, handleChange_B, handleChange_B_mongo,addListItem_B}) {  
 
   var occupationOptions = ['Software Engineer', 'Web Developer', 'Mobile App Developer', 'Data Scientist', 'Artficial Intelligence', 'Cyber Security', 'UI/UX Designer', 'Graphic Designer', 'Data Entry', 'Content Writer', 'Copywriter', 'Social Media Manager', 'SEO Specialist', 'Digital Marketer', 'Video Editor', 'other']
 
@@ -54,7 +54,7 @@ export function BNavPage1({BformData, BformData_mongo, handleChange_B, handleCha
       </div>
       <div style={{marginBottom:'30px'}}>
         <label htmlFor="description">Breif Description:<span className="required">*</span></label>
-        <textarea style={{marginTop:'50px'}} id="description" onChange={handleChange_B_mongo} placeholder="Enter a breif description about your proffessional journey, interesting projects and skills" />
+        <textarea style={{marginTop:'50px'}} placeholder="Enter a breif description about your proffessional journey, interesting projects and skills" />
       </div>
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
         <div style={{ marginRight: '50px' }}>
@@ -62,6 +62,7 @@ export function BNavPage1({BformData, BformData_mongo, handleChange_B, handleCha
           <select id="occupation" value={BformData_mongo.occupation} onChange={handleChange_B_mongo}>
             <option value="">--Please choose an option--</option>
             {occupationOptions.map((option) => (
+
               <option key={option} value={option}>
                 {option}
               </option>
@@ -87,7 +88,7 @@ export function BNavPage1({BformData, BformData_mongo, handleChange_B, handleCha
   );
 }
 
-export function BNavPage2({BformData, BformData_mongo, handleChange_B, handleChange_B_mongo}) {
+export function BNavPage2({BformData, BformData_mongo, handleChange_B, handleChange_B_mongo,addListItem_B}) {
 
   var ProjectOptions = ['Software Engineer', 'Web Developer', 'Mobile App Developer', 'Data Scientist', 'Artficial Intelligence', 'Cyber Security', 'UI/UX Designer', 'Graphic Designer', 'Data Entry', 'Content Writer', 'Copywriter', 'Social Media Manager', 'SEO Specialist', 'Digital Marketer', 'Video Editor', 'other']
 
@@ -98,7 +99,7 @@ export function BNavPage2({BformData, BformData_mongo, handleChange_B, handleCha
       alert('Please fill in all required fields.');
       return;
     }
-  
+    console.log(BformData_mongo.project_area)
     navigate("/buyer_navpage3");
   };
 
@@ -116,7 +117,7 @@ export function BNavPage2({BformData, BformData_mongo, handleChange_B, handleCha
         </div>
     <form className='form-main' onSubmit={handleSubmit}>
       <label style={{marginBottom:'10px', marginTop:"20px"}} htmlFor="projectArea"> Select the Area that Best Describes your Project: <span className="required">*</span></label>
-          <select id="project_area" value={BformData_mongo.project_area} onChange={handleChange_B_mongo}>
+          <select id="project_area" value={[BformData_mongo.project_area]} onChange={addListItem_B}>
             <option value="">--Please choose an option--</option>
             {ProjectOptions.map((option) => (
               <option key={option} value={option}>
@@ -129,11 +130,11 @@ export function BNavPage2({BformData, BformData_mongo, handleChange_B, handleCha
         Project Details:<span className="required">*</span></label>
         <textarea id="project_area_details"
           value={BformData_mongo.project_area_details}
-          onChange={handleChange_B_mongo} placeholder="Enter a detailed description of your project"
+          onChange={addListItem_B} placeholder="Enter a detailed description of your project"
         /></div>
         <div>
         <label style={{marginTop:'30px'}} htmlFor="file">Upload Relevant Documents:</label>
-        <input type="file" id="documents" value={BformData_mongo.documents} multiple onChange={handleChange_B_mongo} />
+        <input type="file" id="documents" value={BformData_mongo.documents} multiple onChange={addListItem_B} />
       </div>
 
       <label style={{marginTop:'30px', marginBottom:'30px'}}>
@@ -141,12 +142,12 @@ export function BNavPage2({BformData, BformData_mongo, handleChange_B, handleCha
         <input
           type="text" id="skills"
           value={BformData_mongo.skills}
-          onChange={handleChange_B_mongo} placeholder="Enter any particular skills required"
+          onChange={addListItem_B} placeholder="Enter any particular skills required"
         />
       <div>
       <label>
         Experience Level Required:<span className="required">*</span></label>
-        <select id="proficency" value={BformData_mongo.proficiency} onChange={handleChange_B_mongo}>
+        <select id="proficency" value={BformData_mongo.proficiency} onChange={addListItem_B}>
           <option value="">Select level</option>
           <option value="basic">Basic</option>
           <option value="intermediate">Intermediate</option>
@@ -160,7 +161,7 @@ export function BNavPage2({BformData, BformData_mongo, handleChange_B, handleCha
   );
 }
 
-export function BNavPage3({BformData, BformData_mongo, handleChange_B, handleChange_B_mongo}) {
+export function BNavPage3({BformData, BformData_mongo, handleChange_B, handleChange_B_mongo,addListItem_B}) {
   var [timeline, setTimeline] = useState(null);
   var [budget, setBudget] = useState(null);
 
@@ -173,8 +174,6 @@ export function BNavPage3({BformData, BformData_mongo, handleChange_B, handleCha
   var handleBudgetChange = (option) => {
     setBudget(option);
   };
-
-  var navigate = useNavigate();
 
   var handleSubmit = (event) => {
     event.preventDefault(); 
@@ -264,9 +263,7 @@ export function BNavPage3({BformData, BformData_mongo, handleChange_B, handleCha
   );
 }
 
-export function BNavPage4({BformData, BformData_mongo, handleChange_B, handleChange_B_mongo}) {
-  var [email, setEmail] = useState('');
-  var [phone, setPhone] = useState('');
+export function BNavPage4({BformData, BformData_mongo, handleChange_B, handleChange_B_mongo,addListItem_B}) {
   var [emailError, setEmailError] = useState(null);
   var [phoneError, setPhoneError] = useState(null);
 
@@ -319,53 +316,66 @@ export function BNavPage4({BformData, BformData_mongo, handleChange_B, handleCha
   );
 }
 
-export function BNavPage5({BformData, BformData_mongo, handleChange_B, handleChange_B_mongo}) {
+export function BNavPage5({BformData, BformData_mongo, handleChange_B, handleChange_B_mongo,addListItem_B}) {
   var navigate = useNavigate();
 
   var handleSubmit = (event) => {
       event.preventDefault();
       BformData.email = BformData_mongo.email
-      console.log(BformData)
-      console.log(BformData_mongo)
-        fetch('https://freelancedbackend.azurewebsites.net/newrecruitermongo', {
+      console.log()
+      console.log(JSON.stringify(BformData_mongo))
+      
+        fetch('https://freelancedbackend.azurewebsites.net/newrecruitermongo/', {
           method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify(BformData_mongo)
         })
         .then(response => {
           if (response.ok) {
+            console.log(response)
             return response.json();
           } else {
             throw new Error('Network response was not ok');
           }
         })
         .then(data => {
-          console.log(JSON.stringify(BformData_mongo));
+          console.log('Data sent successfully');
           navigate('/');
         })
 
         .catch(error => {
           console.error('There was a problem submitting the form', error);
         });
-
+      
+        /*
         fetch('https://freelancedbackend.azurewebsites.net/newrecruiter', {
           method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify(BformData)
         })
         .then(response => {
           if (response.ok) {
+            console.log(response)
             return response.json();
           } else {
             throw new Error('Network response was not ok');
           }
         })
         .then(data => {
-          console.log(JSON.stringify(BformData));
+          console.log('Data sent successfully');
+          
+          
           navigate('/');
         })
 
         .catch(error => {
           console.error('There was a problem submitting the form', error);
         });
+        */
   };
 
     return (
