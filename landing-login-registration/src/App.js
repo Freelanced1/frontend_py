@@ -100,7 +100,10 @@ function App() {
 
 	  const addListItem_B = (e) => {
 		const { id, value } = e.target;
-		setBFormData_mongo([...id, { id: value}]);
+		setBFormData_mongo((prevData) => ({
+		  ...prevData,
+		  [id]: [value],
+		}));
 	  };
 
 	  const addListItem_F = (e) => {

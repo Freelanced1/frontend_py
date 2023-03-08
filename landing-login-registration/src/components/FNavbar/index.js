@@ -14,19 +14,19 @@ return (
     <img className="logo" src={logo} />
 	<Nav>
 		<NavMenu>
-		<NavLink to="/freelancer_navpage1" activeStyle>
+		<NavLink to="/freelancer_navpage1" activestyle="true">
             <img className="image_nav" src={info_icon} ></img>
 			About you
 		</NavLink>
-		<NavLink to="/freelancer_navpage2" activeStyle>
+		<NavLink to="/freelancer_navpage2" activestyle="true">
             <img className="image_nav" src={skills_icon}></img>
 			Skills
 		</NavLink>
-		<NavLink to="/freelancer_navpage3" activeStyle>
+		<NavLink to="/freelancer_navpage3" activestyle="true">
             <img className="image_nav" src={uploads_icon}></img>
 			Uploads & Links
 		</NavLink>
-		<NavLink to="/freelancer_navpage4" activeStyle>
+		<NavLink to="/freelancer_navpage4" activestyle="true">
             <img className="image_nav" src={security_icon}></img>
 			Security
 		</NavLink>

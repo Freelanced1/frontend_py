@@ -117,7 +117,7 @@ export function BNavPage2({BformData, BformData_mongo, handleChange_B, handleCha
         </div>
     <form className='form-main' onSubmit={handleSubmit}>
       <label style={{marginBottom:'10px', marginTop:"20px"}} htmlFor="projectArea"> Select the Area that Best Describes your Project: <span className="required">*</span></label>
-          <select id="project_area" value={[BformData_mongo.project_area]} onChange={addListItem_B}>
+          <select id="project_area" value={BformData_mongo.project_area} multiple={true} onChange={addListItem_B}>
             <option value="">--Please choose an option--</option>
             {ProjectOptions.map((option) => (
               <option key={option} value={option}>
