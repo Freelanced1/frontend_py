@@ -7,6 +7,8 @@ Frontend development repo
 
 ### Step 2
 `npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons`
+
+
 `npm install bootstrap`
 
 ### Step 3
