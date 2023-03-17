@@ -1,7 +1,8 @@
 import NavbarComponent from "./shared/Navbar";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import Chatbot from 'react-chatbot-kit'
+import 'react-chatbot-kit/build/main.css'
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -19,11 +20,35 @@ import laptopImage from "./assets/img/laptop_man.jpg";
 import tabletImage from "./assets/img/tablet.jpg";
 import "./assets/style/custom.css";
 import Footer from "./shared/Footer";
+import MessageParser from "./MessageParser";
+import ActionProvider from "./ActionProvider";
+import config from "./config";
+import { useState } from "react";
+import chat from "./assets/img/conversation.png";
 
 function App() {
+
+  const [showBot, toggleBot] = useState(false);
+
+
   return (
     <div className="App">
       <NavbarComponent />
+      <button
+          className="app-chatbot-button"
+          onClick={() => toggleBot((prev) => !prev)}>
+        <svg fill="#ffffff" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><title>ionicons-v5-l</title><path d="M144,464a16,16,0,0,1-16-16V384H104a72.08,72.08,0,0,1-72-72V120a72.08,72.08,0,0,1,72-72H408a72.08,72.08,0,0,1,72,72V312a72.08,72.08,0,0,1-72,72H245.74l-91.49,76.29A16.05,16.05,0,0,1,144,464Z"></path></g></svg>
+        </button>
+        {showBot && (
+          <div className="app-chatbot-container">
+        <Chatbot
+        config={config}
+        messageParser={MessageParser}
+        actionProvider={ActionProvider}
+      />
+      </div>
+        )}
+     
       <div className="container-fluid">
         <div className="mb-5">
           <Swiper
@@ -41,10 +66,9 @@ function App() {
                   <img src={firstImage} alt="" />
                 </div>
                 <div className="flex-column">
-                  <h3 className="slider-head">Fire Up Your Business With Us</h3>
+                  <h3 className="slider-head">Fire Up Your Business With Freelanced</h3>
                   <p className="slider-txt">
-                    Are you one of the thousands of Iphone owners who has no
-                    idea.{" "}
+                  Connect with the perfect freelancer easily to get your job done right.{" "}
                   </p>
 
                   <InputGroup className="mb-3 mt-3 slider-input">
@@ -82,13 +106,12 @@ function App() {
             <SwiperSlide>
               <div className="d-flex flex-row-reverse align-items-center">
                 <div>
-                  <img src={clockImage} alt="" />
+                  <img src={tabletImage} alt="" />
                 </div>
                 <div className="flex-column">
-                  <h3 className="slider-head">Fire Up Your Business With Us</h3>
+                  <h3 className="slider-head">Calling all freelancers</h3>
                   <p className="slider-txt">
-                    Are you one of the thousands of Iphone owners who has no
-                    idea.{" "}
+                  If you're ready to take your career to the next level, our platform is the place to be. Sign up now and start exploring.{" "}
                   </p>
 
                   <InputGroup className="mb-3 mt-3 slider-input">
@@ -125,7 +148,7 @@ function App() {
                         className="get-start"
                         style={{ width: "max-content" }}
                       >
-                        Get start
+                        Get started
                       </button>
                     </div>
                     <div>
@@ -166,10 +189,9 @@ function App() {
                   <img src={laptopImage} alt="" />
                 </div>
                 <div className="flex-column">
-                  <h3 className="slider-head">Fire Up Your Business With Us</h3>
+                  <h3 className="slider-head">Browse Endless Possibilities</h3>
                   <p className="slider-txt">
-                    Are you one of the thousands of Iphone owners who has no
-                    idea.{" "}
+                  Not sure what you're looking for yet? Browse our community of talented freelancers."{" "}
                   </p>
 
                   <InputGroup className="mb-3 mt-3 slider-input">
@@ -207,88 +229,7 @@ function App() {
                         className="get-start"
                         style={{ width: "max-content" }}
                       >
-                        Get start
-                      </button>
-                    </div>
-                    <div>
-                      <button
-                        className="btn btn-custom"
-                        style={{ width: "max-content" }}
-                      >
-                        <svg
-                          width="56"
-                          height="56"
-                          viewBox="0 0 56 56"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M40 24.5359C42.6667 26.0755 42.6667 29.9245 40 31.4641L25 40.1244C22.3333 41.664 19 39.7395 19 36.6603L19 19.3397C19 16.2605 22.3333 14.336 25 15.8756L40 24.5359Z"
-                            fill="#4947A7"
-                          />
-                          <circle
-                            cx="28"
-                            cy="28"
-                            r="26.5"
-                            stroke="#4947A7"
-                            stroke-width="3"
-                          />
-                        </svg>
-                        <span className="ps-2">Watch Demo</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </SwiperSlide>
-
-            <SwiperSlide>
-              <div className="d-flex flex-row-reverse align-items-center">
-                <div>
-                  <img src={tabletImage} alt="" />
-                </div>
-                <div className="flex-column">
-                  <h3 className="slider-head">Fire Up Your Business With Us</h3>
-                  <p className="slider-txt">
-                    Are you one of the thousands of Iphone owners who has no
-                    idea.{" "}
-                  </p>
-
-                  <InputGroup className="mb-3 mt-3 slider-input">
-                    <InputGroup.Text
-                      style={{
-                        background: "transparent",
-                        border: "unset",
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faSearch} />
-                    </InputGroup.Text>
-                    <Form.Control
-                      style={{
-                        border: "unset",
-                        padding: "12px",
-                      }}
-                      aria-label="Last name"
-                      placeholder="Find services"
-                    />
-                    <InputGroup.Text
-                      className="input-styles"
-                      style={{
-                        border: "unset",
-                        borderLeft: "3px solid #4947A7",
-                        background: "transparent",
-                      }}
-                    >
-                      Search
-                    </InputGroup.Text>
-                  </InputGroup>
-                  <div className="d-flex flex-row w-100">
-                    <div>
-                      <button
-                        className="get-start"
-                        style={{ width: "max-content" }}
-                      >
-                        Get start
+                        Get started
                       </button>
                     </div>
                     <div>
@@ -334,10 +275,7 @@ function App() {
 
           <div className="col-md-6 col-12 d-flex align-items-center">
             <p className="body-txt">
-              n publishing and graphic design, Lorem ipsum is a placeholder text
-              commonly used to demonstrate the visual form of a document or a
-              typeface without relying on meaningful content. Lorem ipsum may be
-              used as a placeholder before final copy is available.
+            We are a freelance marketplace connecting businesses and individuals with skilled professionals who prioritize exceptional freelance services and making a positive impact on the world. Our platform offers a network of talented freelancers and satisfied clients to achieve your goals.
             </p>
           </div>
         </div>
@@ -346,8 +284,7 @@ function App() {
           <div className="col-md-4 col-12 d-flex flex-column justify-content-center">
             <h3 className="body-head">Services</h3>
             <p className="body-txt">
-               publishing and graphic design, Lorem ipsum is a placeholder text
-              commonly used to demonstrate.
+            Freelanced offers a wide range of freelance services. With our user-friendly platform, you can easily find and hire skilled professionals for any task.
             </p>
           </div>
           <div className="col-md-8 col-12">
@@ -970,7 +907,7 @@ function App() {
                   </svg>
                 </div>
                 <p className="ps-2 li-items">
-                  n publishing and graphic design.
+                A community of talented professionals.
                 </p>
               </li>
               <li className="d-flex flex-row pt-5">
@@ -1004,7 +941,7 @@ function App() {
                   </svg>
                 </div>
                 <p className="ps-2 li-items">
-                  n publishing and graphic design.
+                A network of skilled freelancers and satisfied clients.
                 </p>
               </li>
               <li className="d-flex flex-row pt-5">
@@ -1038,7 +975,7 @@ function App() {
                   </svg>
                 </div>
                 <p className="ps-2 li-items">
-                  n publishing and graphic design.
+                A better world through exceptional freelance services.
                 </p>
               </li>
             </ul>
@@ -1048,12 +985,11 @@ function App() {
           <div className="col-md-8 col-12">
             <h3 className="get-start-head pt-3 pb-3">Join the team</h3>
             <p className="get-start-body">
-              n publishing and graphic design, Lorem ipsum is a placeholder text
-              commonly used to demonstrate.
+            If you're passionate about creating a better world through freelance services, we encourage you to apply today! Visit our careers section for more information
             </p>
           </div>
           <div className="col-md-4 col-12 d-flex flex-column justify-content-center">
-            <button className="get-start">Get start</button>
+            <button className="get-start">Explore</button>
           </div>
         </div>
       </div>

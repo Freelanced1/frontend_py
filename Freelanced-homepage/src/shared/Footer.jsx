@@ -27,44 +27,44 @@ const Footer = () => {
           </div>
 
           <div className="col-12 col-md-3">
-            <h6 className="footer-head">Services</h6>
+            <h6 className="footer-head">About</h6>
             <ul className="footer-ul">
               <li>
-                <a href="">Seo</a>
+                <a href="">Careers</a>
               </li>
               <li>
-                <a href="">Graphic Design</a>
+                <a href="">Privacy Policy</a>
               </li>
               <li>
-                <a href="">Translation</a>
+                <a href="">Terms of Service</a>
               </li>
             </ul>
           </div>
           <div className="col-12 col-md-3">
-            <h6 className="footer-head">Services</h6>
+            <h6 className="footer-head">Support</h6>
             <ul className="footer-ul">
               <li>
-                <a href="">Seo</a>
+                <a href="">Help & Support</a>
               </li>
               <li>
-                <a href="">Graphic Design</a>
+                <a href="">Selling on Freelanced</a>
               </li>
               <li>
-                <a href="">Translation</a>
+                <a href="">Buying on Freelanced</a>
               </li>
             </ul>
           </div>
           <div className="col-12 col-md-3">
-            <h6 className="footer-head">Services</h6>
+            <h6 className="footer-head">Community</h6>
             <ul className="footer-ul">
               <li>
-                <a href="">Seo</a>
+                <a href="">Customer Feedback</a>
               </li>
               <li>
-                <a href="">Graphic Design</a>
+                <a href="">Invite a friend</a>
               </li>
               <li>
-                <a href="">Translation</a>
+                <a href="">Forum</a>
               </li>
             </ul>
           </div>
