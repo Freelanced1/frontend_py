@@ -349,7 +349,7 @@ export function BNavPage5({BformData, BformData_mongo, handleChange_B, handleCha
           console.error('There was a problem submitting the form', error);
         });
       
-        /*
+        
         fetch('https://freelancedbackend.azurewebsites.net/newrecruiter', {
           method: 'POST',
           headers: {
@@ -369,13 +369,13 @@ export function BNavPage5({BformData, BformData_mongo, handleChange_B, handleCha
           console.log('Data sent successfully');
           
           
-          navigate('/');
+          navigate('/buyer_homepage');
         })
 
         .catch(error => {
           console.error('There was a problem submitting the form', error);
         });
-        */
+        
   };
 
     return (

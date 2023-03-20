@@ -9,6 +9,12 @@ import LoginRegister from './pages/login-register';
 import Roles from './pages/selectrole';
 import {BNavPage1, BNavPage2, BNavPage3, BNavPage4, BNavPage5} from './pages/buyer_navpage';
 import {FNavPage1, FNavPage2, FNavPage3, FNavPage4, FNavPage5} from './pages/freelancer_navpage';
+import FHomePage from './pages/freelancer_homepage';
+import FProfile from './pages/freelancer_profile';
+import BProfile from "./pages/buyer_profile";
+import FSearch from './pages/freelancer_search';
+import BHomePage from './pages/buyer_homepage';
+import BSearch from './pages/buyer_search';
 
 
 function App() {
@@ -131,6 +137,13 @@ return (
 		<Route path='/freelancer_navpage3' element={<><FNavbar /><FNavPage3 FformData={FformData} FformData_mongo={FformData_mongo} handleChange_F={handleChange_F} handleChange_F_mongo={handleChange_F_mongo} addListItem_F={addListItem_F}/></>}/>
 		<Route path='/freelancer_navpage4' element={<><FNavbar /><FNavPage4 FformData={FformData} FformData_mongo={FformData_mongo} handleChange_F={handleChange_F} handleChange_F_mongo={handleChange_F_mongo} addListItem_F={addListItem_F}/></>}/>
     	<Route path='/freelancer_navpage5' element={<><FNavbar /><FNavPage5 FformData={FformData} FformData_mongo={FformData_mongo} handleChange_F={handleChange_F} handleChange_F_mongo={handleChange_F_mongo} addListItem_F={addListItem_F}/></>}/>
+		<Route path='/freelancer_homepage' element={<FHomePage/>}/>
+		<Route path='/freelancer_profile' element={<FProfile/>}/>
+		<Route path='/buyer_homepage' element={<BHomePage/>}/>
+		<Route path='/buyer_profile' element={<BProfile/>}/>
+		<Route path='/freelancer_search' element={<FSearch/>}/>
+		<Route path='/buyer_search' element={<BSearch/>}/>
+		
 	</Routes>
 	</Router>
 );
