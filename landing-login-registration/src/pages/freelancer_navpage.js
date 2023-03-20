@@ -349,7 +349,7 @@ export function FNavPage5 ({FformData, FformData_mongo, handleChange_F, handleCh
     FformData.email = FformData_mongo.email
     
     
-      fetch('https://freelancedbackend.azurewebsites.net/newusermongo/', {
+      fetch('https://freelancedit.azurewebsites.net/newusermongo/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -375,7 +375,7 @@ export function FNavPage5 ({FformData, FformData_mongo, handleChange_F, handleCh
       });
     
       
-      fetch('https://freelancedbackend.azurewebsites.net/newuser', {
+      fetch('https://freelancedit.azurewebsites.net/newuser', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

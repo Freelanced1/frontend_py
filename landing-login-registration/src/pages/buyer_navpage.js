@@ -325,7 +325,7 @@ export function BNavPage5({BformData, BformData_mongo, handleChange_B, handleCha
       console.log()
       console.log(JSON.stringify(BformData_mongo))
       
-        fetch('https://freelancedbackend.azurewebsites.net/newrecruitermongo/', {
+        fetch('https://freelancedit.azurewebsites.net/newrecruitermongo/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -350,7 +350,7 @@ export function BNavPage5({BformData, BformData_mongo, handleChange_B, handleCha
         });
       
         
-        fetch('https://freelancedbackend.azurewebsites.net/newrecruiter', {
+        fetch('https://freelancedit.azurewebsites.net/newrecruiter', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
