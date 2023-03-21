@@ -44,11 +44,60 @@ const BSearch = () => {
   };
 
   const handleSearchSubmit = (event) => {
-	setButtonPressed(true);
+    setButtonPressed(true);
     event.preventDefault();	
-    // Handle search query submission here
-	
-  };
+    fetch(`https://freelancedit.azurewebsites.net/searchuserdetailsmongo/${searchQuery}`)
+        .then(response => {
+          if (response.ok) {
+            console.log(response)
+            return response.json();
+          } else {
+            throw new Error('Network response was not ok');
+          }
+        })
+        .then(data => {
+          console.log(data);
+        })
+  
+        .catch(error => {
+          console.error('There was a problem submitting the form', error);
+        });
+      // Handle search query submission here
+    
+    };
+  
+    const handleFilterSubmit = (event) => {
+      setButtonPressed(true);
+      event.preventDefault();	
+      let url = `https://freelancedit.azurewebsites.net/filteruserdetailsmongo/?skills=${selectedSkill}`
+      if (selectedCategory !== "") {
+        url+= `&category=${selectedCategory}`;
+      }
+      if (selectedRating !== "") {
+        url+= `&ratings=${selectedRating}`;
+      }
+      if (selectedExperience!== "") {
+        url+= `&experience=${selectedExperience}`;
+      }
+      fetch(url)
+          .then(response => {
+            if (response.ok) {
+              console.log(response)
+              return response.json();
+            } else {
+              throw new Error('Network response was not ok');
+            }
+          })
+          .then(data => {
+            console.log(data);
+          })
+    
+          .catch(error => {
+            console.error('There was a problem submitting the form', error);
+          });
+        // Handle search query submission here
+      
+      };
 
   return (
 	<div className="title"> <img className="logo-gif" src={logo} ></img>
@@ -95,7 +144,7 @@ const BSearch = () => {
             <option value="four">4 stars</option>
             <option value="five">5 stars</option>
           </select>
-		  <button onClick={handleSearchSubmit} type="submit" style={{marginLeft:'30px', marginBottom:"10px"}} className="search-btn">Apply Filters and Search</button>
+		  <button onClick={handleFilterSubmit} type="submit" style={{marginLeft:'30px', marginBottom:"10px"}} className="search-btn">Apply Filters and Search</button>
         </div>
 		{buttonPressed && <div className="search-results">
       {searchResults.map((result, index) => (

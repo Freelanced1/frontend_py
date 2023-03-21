@@ -6,7 +6,7 @@ const FSearch = () => {
 
   const navigate = useNavigate();
   const searchResults = [
-		{ name: 'Gargee Vaidya', category: 'Frontend Developer', skills: 'React', budget: "$10000", time: "2 months"},
+		{ name: 'Gargee Vaidya', category: 'Frontend Developer', skill: 'React', budget: "$10000", time: "2 months"},
 		{ name: 'Ankur Verma', category: 'Backend Developer', skill: 'Python', budget: "$10000", time: "2 months"},
 		{ name: 'Prashant Singh', category: 'Frontend Developer', skill: 'CSS', budget: "$10000", time: "2 months"},
 		{ name: 'Gurnoor Singh Brar', category: 'Database Manageer', skill: 'SQL', budget: "$10000", time: "2 months"},
@@ -20,8 +20,8 @@ const FSearch = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedSkill, setSelectedSkill] = useState('');
-  const [selectedExperience, setSelectedExperience] = useState('');
-  const [selectedRating, setSelectedRating] = useState('');
+  const [selectedbudget, setSelectedbudget] = useState('');
+  const [selectedtime, setSelectedtime] = useState('');
 
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);
@@ -35,20 +35,69 @@ const FSearch = () => {
     setSelectedSkill(event.target.value);
   };
 
-  const handleExperienceChange = (event) => {
-    setSelectedExperience(event.target.value);
+  const handlebudgetChange = (event) => {
+    setSelectedbudget(event.target.value);
   };
 
-  const handleRatingChange = (event) => {
-    setSelectedRating(event.target.value);
+  const handletimeChange = (event) => {
+    setSelectedtime(event.target.value);
   };
 
   const handleSearchSubmit = (event) => {
 	setButtonPressed(true);
-    event.preventDefault();	
+  event.preventDefault();	
+  fetch(`https://freelancedit.azurewebsites.net/searchrecruiterdetailsmongo/${searchQuery}`)
+      .then(response => {
+        if (response.ok) {
+          console.log(response)
+          return response.json();
+        } else {
+          throw new Error('Network response was not ok');
+        }
+      })
+      .then(data => {
+        console.log(data);
+      })
+
+      .catch(error => {
+        console.error('There was a problem submitting the form', error);
+      });
     // Handle search query submission here
 	
   };
+
+  const handleFilterSubmit = (event) => {
+    setButtonPressed(true);
+    event.preventDefault();	
+    let url = `https://freelancedit.azurewebsites.net/filterbuyerdetailsmongo/?time=${selectedtime}`
+    if (selectedCategory !== "") {
+      url+= `&category=${selectedCategory}`;
+    }
+    if (selectedtime !== "") {
+      url+= `&times=${selectedtime}`;
+    }
+    if (selectedbudget!== "") {
+      url+= `&budget=${selectedbudget}`;
+    }
+    fetch(url)
+        .then(response => {
+          if (response.ok) {
+            console.log(response)
+            return response.json();
+          } else {
+            throw new Error('Network response was not ok');
+          }
+        })
+        .then(data => {
+          console.log(data);
+        })
+  
+        .catch(error => {
+          console.error('There was a problem submitting the form', error);
+        });
+      // Handle search query submission here
+    
+    };
 
   return (
 	<div className="title"> <img className="logo-gif" src={logo} ></img>
@@ -78,8 +127,8 @@ const FSearch = () => {
             <option value="design">Design</option>
           </select>
 
-          <label htmlFor="experience">Budget:</label>
-          <select className='dropbutton' id="experience" value={selectedExperience} onChange={handleExperienceChange}>
+          <label htmlFor="budget">Budget:</label>
+          <select className='dropbutton' id="budget" value={selectedbudget} onChange={handlebudgetChange}>
             <option value=""> all budgets</option>
             <option value=">10k"> more than $10,000</option>
             <option value="5k-10k">between $5000 to $10,000</option>
@@ -87,16 +136,16 @@ const FSearch = () => {
             <option value="<1k">less than $1000</option>
           </select>
 
-          <label htmlFor="rating">Time:</label>
-          <select className='dropbutton' id="rating" value={selectedRating} onChange={handleRatingChange}>
-            <option value="">All ratings</option>
+          <label htmlFor="time">Time:</label>
+          <select className='dropbutton' id="time" value={selectedtime} onChange={handletimeChange}>
+            <option value="">All times</option>
             <option value="one">1 month</option>
             <option value="two">2 months</option>
             <option value="three">4 months</option>
             <option value="four">8 months</option>
             <option value="five">1 year</option>
           </select>
-		  <button onClick={handleSearchSubmit} type="submit" style={{marginLeft:'30px', marginBottom:"10px"}} className="search-btn">Apply Filters and Search</button>
+		  <button onClick={handleFilterSubmit} type="submit" style={{marginLeft:'30px', marginBottom:"10px"}} className="search-btn">Apply Filters and Search</button>
         </div>
 		{buttonPressed && <div className="search-results">
       {searchResults.map((result, index) => (
