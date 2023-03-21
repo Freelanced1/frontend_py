@@ -342,7 +342,7 @@ export function BNavPage5({BformData, BformData_mongo, handleChange_B, handleCha
         })
         .then(data => {
           console.log('Data sent successfully');
-          navigate('/');
+          navigate('/buyer_homepage');
         })
 
         .catch(error => {

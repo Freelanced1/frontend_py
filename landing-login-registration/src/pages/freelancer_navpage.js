@@ -393,7 +393,7 @@ export function FNavPage5 ({FformData, FformData_mongo, handleChange_F, handleCh
       .then(data => {
         console.log(JSON.stringify(FformData))
         console.log('Data sent successfully');
-        navigate('/');
+        navigate('/freelancer_homepage');
       })
 
       .catch(error => {
