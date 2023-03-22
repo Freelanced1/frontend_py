@@ -269,7 +269,7 @@ export function FNavPage3({FformData, FformData_mongo, handleChange_F, handleCha
     <form className='form-main' onSubmit={handleSubmit}>
       <div>
         <label htmlFor="file">Upload Work Samples:</label>
-        <input type="file" id="worksamples" value={FformData_mongo.worksamples} multiple onChange={handleChange_F_mongo} />
+        <input type="file" id="worksamples" value={FformData_mongo.worksamples} multiple onChange={addListItem_F} />
       </div>
       <div>
         <label htmlFor="website">Website/Portfolio Link:</label>
@@ -277,7 +277,7 @@ export function FNavPage3({FformData, FformData_mongo, handleChange_F, handleCha
       </div>
       <div>
         <label htmlFor="certifications">Certifications:</label>
-        <input style={{marginTop:'50px'}} type="text" id="certificates" value={FformData_mongo.certificates} onChange={handleChange_F_mongo} placeholder="Enter your certifications"/>
+        <input style={{marginTop:'50px'}} type="text" id="certificates" value={FformData_mongo.certificates} onChange={addListItem_F} placeholder="Enter your certifications"/>
       </div>
       <button style={{marginTop:'50px'}} type="submit" onClick={() => navigate("/freelancer_navpage4")} >Save & Continue</button>
     </form>
@@ -345,10 +345,11 @@ export function FNavPage5 ({FformData, FformData_mongo, handleChange_F, handleCh
 
   var handleSubmit = (event) => {
     event.preventDefault();
+    console.log(JSON.stringify(FformData_mongo))
     FformData.email = FformData_mongo.email
     
     
-      fetch('https://freelancedbackend.azurewebsites.net/newusermongo/', {
+      fetch('https://freelancedit.azurewebsites.net/newusermongo/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -366,7 +367,7 @@ export function FNavPage5 ({FformData, FformData_mongo, handleChange_F, handleCh
       .then(data => {
         console.log(JSON.stringify(FformData_mongo))
         console.log('Data sent successfully');
-        navigate('/');
+        navigate('/freelancer_homepage');
       })
 
       .catch(error => {
@@ -374,7 +375,7 @@ export function FNavPage5 ({FformData, FformData_mongo, handleChange_F, handleCh
       });
     
       
-      fetch('https://freelancedbackend.azurewebsites.net/newuser', {
+      fetch('https://freelancedit.azurewebsites.net/newuser', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -392,7 +393,7 @@ export function FNavPage5 ({FformData, FformData_mongo, handleChange_F, handleCh
       .then(data => {
         console.log(JSON.stringify(FformData))
         console.log('Data sent successfully');
-        navigate('/');
+        navigate('/freelancer_homepage');
       })
 
       .catch(error => {
