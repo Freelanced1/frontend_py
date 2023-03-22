@@ -5,18 +5,22 @@ import { Navigate, useNavigate } from 'react-router-dom';
 const FSearch = () => {
 
   const navigate = useNavigate();
-  const searchResults = [
+  /*const searchResults = [
 		{ name: 'Gargee Vaidya', category: 'Frontend Developer', skill: 'React', budget: "$10000", time: "2 months"},
 		{ name: 'Ankur Verma', category: 'Backend Developer', skill: 'Python', budget: "$10000", time: "2 months"},
 		{ name: 'Prashant Singh', category: 'Frontend Developer', skill: 'CSS', budget: "$10000", time: "2 months"},
 		{ name: 'Gurnoor Singh Brar', category: 'Database Manageer', skill: 'SQL', budget: "$10000", time: "2 months"},
-		];
+		];*/
+  const [searchResults, setSearchResults] = useState([]);
   const handleClick = (index) => {
+    setIndexSelected(index)
 		console.log(`Box ${index} is clicked.`);
-		navigate("/buyer_profile")
+    setBoxSelected(true);
 		};
 
   const [buttonPressed, setButtonPressed] = useState(false);
+  const [boxSelected, setBoxSelected]= useState(false);
+  const [indexSelected, setIndexSelected] = useState();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedSkill, setSelectedSkill] = useState('');
@@ -57,6 +61,7 @@ const FSearch = () => {
       })
       .then(data => {
         console.log(data);
+        setSearchResults(data.data);
       })
 
       .catch(error => {
@@ -89,6 +94,7 @@ const FSearch = () => {
           }
         })
         .then(data => {
+          setSearchResults(data.data);
           console.log(data);
         })
   
@@ -147,21 +153,26 @@ const FSearch = () => {
           </select>
 		  <button onClick={handleFilterSubmit} type="submit" style={{marginLeft:'30px', marginBottom:"10px"}} className="search-btn">Apply Filters and Search</button>
         </div>
+    <div className='search-area'>
 		{buttonPressed && <div className="search-results">
       {searchResults.map((result, index) => (
         <div key={index} className="search-result" onClick={() => handleClick(index)}>
-          <div className="search-result-name">{result.name}</div>
-          <div className="search-result-category">Hiring: {result.category}</div>
+          <div className="search-result-name">{result.email}</div>
+          <div className="search-result-category">Hiring: {result.project_area}</div>
           <div className="search-result-details">
-			<div className="search-result-details-field">Skill required: {result.skill}</div>
-		  	<div className="search-result-details-field">Budget: {result.budget}</div>
-		  	<div className="search-result-details-field">Time: {result.time}</div>
-			</div>
+            <div className="search-result-details-field">Skill required: {result.skills}</div>
+            <div className="search-result-details-field">Budget: {result.budget}</div>
+            <div className="search-result-details-field">Time: {result.timeline}</div>
+          </div>
         </div>
       ))}
     </div>}
+    <div className='search-right'>{boxSelected && <div className='search-right-text'>Profile for {indexSelected} is selected</div>}</div>
+    </div>
+    
       </form>
     </div>
+    
   );
 };
 

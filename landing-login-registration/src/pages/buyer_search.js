@@ -5,18 +5,22 @@ import { Navigate, useNavigate } from 'react-router-dom';
 const BSearch = () => {
 
   const navigate = useNavigate();
-  const searchResults = [
-		{ name: 'Gargee Vaidya', category: 'Frontend Developer', skill: 'React', experience: "1 year", rating: "5/5" },
-		{ name: 'Ankur Verma', category: 'Backend Developer', skill: 'Python', experience: "1 year", rating: "5/5"  },
-		{ name: 'Prashant Singh', category: 'Frontend Developer', skill: 'CSS', experience: "1 year", rating: "5/5"  },
-		{ name: 'Gurnoor Singh Brar', category: 'Database', skill: 'SQL', experience: "1 year", rating: "5/5"  },
-		];
+  /*const searchResults = [
+		{ name: 'Gargee Vaidya', category: 'Frontend Developer', skill: 'React', budget: "$10000", time: "2 months"},
+		{ name: 'Ankur Verma', category: 'Backend Developer', skill: 'Python', budget: "$10000", time: "2 months"},
+		{ name: 'Prashant Singh', category: 'Frontend Developer', skill: 'CSS', budget: "$10000", time: "2 months"},
+		{ name: 'Gurnoor Singh Brar', category: 'Database Manageer', skill: 'SQL', budget: "$10000", time: "2 months"},
+		];*/
+  const [searchResults, setSearchResults] = useState([]);
   const handleClick = (index) => {
+		setIndexSelected(index)
 		console.log(`Box ${index} is clicked.`);
-		navigate("/freelancer_profile")
+    setBoxSelected(true);
 		};
 
   const [buttonPressed, setButtonPressed] = useState(false);
+  const [boxSelected, setBoxSelected]= useState(false);
+  const [indexSelected, setIndexSelected] = useState();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedSkill, setSelectedSkill] = useState('');
@@ -57,6 +61,7 @@ const BSearch = () => {
         })
         .then(data => {
           console.log(data);
+          setSearchResults(data.data);
         })
   
         .catch(error => {
@@ -90,6 +95,7 @@ const BSearch = () => {
           })
           .then(data => {
             console.log(data);
+            setSearchResults(data.data);
           })
     
           .catch(error => {
@@ -146,19 +152,23 @@ const BSearch = () => {
           </select>
 		  <button onClick={handleFilterSubmit} type="submit" style={{marginLeft:'30px', marginBottom:"10px"}} className="search-btn">Apply Filters and Search</button>
         </div>
+      <div className='search-area'>
 		{buttonPressed && <div className="search-results">
       {searchResults.map((result, index) => (
         <div key={index} className="search-result" onClick={() => handleClick(index)}>
-          <div className="search-result-name">{result.name}</div>
-          <div className="search-result-category">{result.category}</div>
+          <div className="search-result-name">{result.email}</div>
+          <div className="search-result-category">{result.occupation}</div>
           <div className="search-result-details">
-			<div className="search-result-details-field">Top Skill: {result.skill}</div>
+			<div className="search-result-details-field">Top Skill: {result.skills}</div>
 		  	<div className="search-result-details-field">Experience: {result.experience}</div>
 		  	<div className="search-result-details-field">Rating: {result.rating}</div>
 			</div>
         </div>
       ))}
     </div>}
+    <div className='search-right'>{boxSelected && <div className='search-right-text'>Profile for {indexSelected} is selected</div>}</div>
+    </div>
+    
       </form>
     </div>
   );
