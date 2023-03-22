@@ -25,6 +25,8 @@ import ActionProvider from "./ActionProvider";
 import config from "./config";
 import { useState } from "react";
 import chat from "./assets/img/conversation.png";
+import Iframe from "./shared/Iframechat";
+import Iframechat from "./shared/Iframechat";
 
 function App() {
 
@@ -41,11 +43,12 @@ function App() {
         </button>
         {showBot && (
           <div className="app-chatbot-container">
-        <Chatbot
+        {/* <Chatbot
         config={config}
         messageParser={MessageParser}
         actionProvider={ActionProvider}
-      />
+      /> */}
+            <Iframechat />
       </div>
         )}
      
@@ -867,7 +870,7 @@ function App() {
             </Swiper>
           </div>
         </div>
-
+       
         <div className="row">
           <div className="col-md-6 col-12 d-flex align-items-center">
             <img src={thirdImage} className="img-fluid" alt="" />
