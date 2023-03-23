@@ -15,6 +15,8 @@ import BProfile from "./pages/buyer_profile";
 import FSearch from './pages/freelancer_search';
 import BHomePage from './pages/buyer_homepage';
 import BSearch from './pages/buyer_search';
+import BUpdateProject from './pages/buyer_update_project';
+import BDeleteProject from './pages/buyer_delete_projects';
 
 
 function App() {
@@ -143,6 +145,8 @@ return (
 		<Route path='/buyer_profile' element={<BProfile/>}/>
 		<Route path='/freelancer_search' element={<FSearch/>}/>
 		<Route path='/buyer_search' element={<BSearch/>}/>
+		<Route path='/buyer-update-project' element={<BUpdateProject/>}/>
+		<Route path='/buyer-delete-project' element={<BDeleteProject/>}/>
 		
 	</Routes>
 	</Router>

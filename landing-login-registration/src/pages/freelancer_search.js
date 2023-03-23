@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import logo from './freelanced_logo.gif';
 import { Navigate, useNavigate } from 'react-router-dom';
+import skills from './skills.png';
+import info from './info.png';
+import experience from './experience.png';
+import money from './money.png';
+
 
 const FSearch = () => {
 
@@ -61,10 +66,25 @@ const FSearch = () => {
       })
       .then(data => {
         console.log(data);
-        setSearchResults(data.data);
-      })
-
-      .catch(error => {
+        const emailList = data.data.map(result => result.email);
+        const promises = emailList.map(email => {
+          return fetch(`https://freelancedit.azurewebsites.net/getbusiness/${email}`).then(response => response.json());
+        });
+        Promise.all(promises).then(results => {
+          const searchResults = data.data.map((result, index) => {
+            return {
+              ...result,
+              Firstname: results[index].Firstname,
+              Lastname: results[index].Lastname,
+              // add more properties from results as needed
+            };
+          });
+          setSearchResults(searchResults);
+          console.log(searchResults)
+        }).catch(error => {
+          console.error('There was a problem getting additional details for the search results', error);
+        });
+      }).catch(error => {
         console.error('There was a problem submitting the form', error);
       });
     // Handle search query submission here
@@ -94,11 +114,26 @@ const FSearch = () => {
           }
         })
         .then(data => {
-          setSearchResults(data.data);
           console.log(data);
-        })
-  
-        .catch(error => {
+          const emailList = data.data.map(result => result.email);
+          const promises = emailList.map(email => {
+            return fetch(`https://freelancedit.azurewebsites.net/getbusiness/${email}`).then(response => response.json());
+          });
+          Promise.all(promises).then(results => {
+            const searchResults = data.data.map((result, index) => {
+              return {
+                ...result,
+                Firstname: results[index].Firstname,
+                Lastname: results[index].Lastname,
+                // add more properties from results as needed
+              };
+            });
+            setSearchResults(searchResults);
+            console.log(searchResults)
+          }).catch(error => {
+            console.error('There was a problem getting additional details for the search results', error);
+          });
+        }).catch(error => {
           console.error('There was a problem submitting the form', error);
         });
       // Handle search query submission here
@@ -157,7 +192,7 @@ const FSearch = () => {
 		{buttonPressed && <div className="search-results">
       {searchResults.map((result, index) => (
         <div key={index} className="search-result" onClick={() => handleClick(index)}>
-          <div className="search-result-name">{result.email}</div>
+          <div className="search-result-name">{result.Firstname} {result.Lastname}</div>
           <div className="search-result-category">Hiring: {result.project_area}</div>
           <div className="search-result-details">
             <div className="search-result-details-field">Skill required: {result.skills}</div>
@@ -167,7 +202,49 @@ const FSearch = () => {
         </div>
       ))}
     </div>}
-    <div className='search-right'>{boxSelected && <div className='search-right-text'>Profile for {indexSelected} is selected</div>}</div>
+    <div className='search-right'>{boxSelected && <div className='search-right-content'>
+    <div>
+          <h1>{searchResults[indexSelected].Firstname} {searchResults[indexSelected].Lastname}</h1>
+          <h2>{searchResults[indexSelected].occupation}</h2>
+          <h2>Project Area: {searchResults[indexSelected].project_area}</h2>
+          <div className='content-box'>
+            <img style={{width: "8%", height: "8%", padding:"10px"}} src={info}></img>
+            <div>
+          <h4>Project Description</h4>
+          <p>{searchResults[indexSelected].project_area_details}</p> </div></div>
+
+          <div className='content-box-flex' >
+
+          <div style={{width:"30%"}}>
+          <div className='content-box'>
+          <img style={{width: "25%", height: "25%", padding:"10px"}} src={skills}></img>
+          <div>
+            <h4>Skills required</h4>
+          <ul>
+            {searchResults[indexSelected].skills.map(skill => (
+              <li key={skill}>{skill}</li>
+            ))}
+          </ul> </div>
+          </div></div>
+
+          <div style={{width:"30%"}}>
+            <div className='content-box'>
+              <img style={{width: "25%", height: "25%", padding:"10px"}} src={money}></img>
+              <div><h4>Budget</h4>
+          <p>{searchResults[indexSelected].budget} CAD</p> </div></div></div>
+
+          <div style={{width:"30%"}}>
+          <div className='content-box'>
+          <img style={{width: "25%", height: "25%", padding:"10px"}} src={experience}></img>
+          <div>
+              <h4>Deadline</h4>
+          <p>{searchResults[indexSelected].deadline}</p> </div></div>
+          </div>
+          </div>
+        </div>
+      </div>
+     }
+    </div>
     </div>
     
       </form>
