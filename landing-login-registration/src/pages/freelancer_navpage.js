@@ -269,11 +269,11 @@ export function FNavPage3({FformData, FformData_mongo, handleChange_F, handleCha
     <form className='form-main' onSubmit={handleSubmit}>
       <div>
         <label htmlFor="file">Upload Work Samples:</label>
-        <input type="file" id="worksamples" value={FformData_mongo.worksamples} multiple onChange={addListItem_F} />
+        <input type="file" id="worksamples" value={FformData_mongo.certificates} multiple onChange={addListItem_F} />
       </div>
       <div>
         <label htmlFor="website">Website/Portfolio Link:</label>
-        <input style={{marginTop:'50px'}}type="text" id="worksamples" value={FformData_mongo.worksamples} onChange={handleChange_F_mongo} placeholder="Enter website or portfolio link"/>
+        <input style={{marginTop:'50px'}}type="text" id="worksamples" value={FformData_mongo.worksamples} onChange={addListItem_F} placeholder="Enter website or portfolio link"/>
       </div>
       <div>
         <label htmlFor="certifications">Certifications:</label>
