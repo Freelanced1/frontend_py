@@ -166,11 +166,13 @@ button:hover {
 .search-result-name {
   font-weight: bold;
   font-size: 18px;
+  margin-left: 30px;
 }
 
 .search-result-category {
   margin-top: 5px;
   font-size: 16px;
+  margin-left: 30px;
 }
 
 .search-result-details {
@@ -209,7 +211,7 @@ button:hover {
 .search-right-content {
   background-color: rgba(152, 172, 244, 0.5);
   padding: 30px;
-  margin-left: 20px;
+  margin-left: 0px;
   justify-content: center;
   border-radius: 5px;
 }

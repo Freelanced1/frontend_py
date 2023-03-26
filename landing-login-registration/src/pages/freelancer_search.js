@@ -5,6 +5,8 @@ import skills from './skills.png';
 import info from './info.png';
 import experience from './experience.png';
 import money from './money.png';
+import { Link } from 'react-router-dom';
+
 
 
 const FSearch = () => {
@@ -94,15 +96,38 @@ const FSearch = () => {
   const handleFilterSubmit = (event) => {
     setButtonPressed(true);
     event.preventDefault();	
-    let url = `https://freelancedit.azurewebsites.net/filterbuyerdetailsmongo/?time=${selectedtime}`
+    let url = `https://freelancedit.azurewebsites.net/filterbuyerdetailsmongo/?`
+    if (selectedSkill !=="") {
+      if (url.endsWith('?')) {
+        url+= `skills=${selectedSkill}`;
+      }
+      else {
+        url+= `&skills=${selectedSkill}`;
+      }
+    }
     if (selectedCategory !== "") {
-      url+= `&category=${selectedCategory}`;
+      if (url.endsWith('?')) {
+        url+= `category=${selectedCategory}`;
+      }
+      else {
+        url+= `&category=${selectedCategory}`;
+      }
     }
     if (selectedtime !== "") {
-      url+= `&times=${selectedtime}`;
+      if (url.endsWith('?')) {
+        url+= `time=${selectedtime}`;
+      }
+      else {
+        url+= `&time=${selectedtime}`;
+      }
     }
     if (selectedbudget!== "") {
-      url+= `&budget=${selectedbudget}`;
+      if (url.endsWith('?')) {
+        url+= `budget=${selectedbudget}`;
+      }
+      else {
+        url+= `&budget=${selectedbudget}`;
+      }
     }
     fetch(url)
         .then(response => {
@@ -152,11 +177,14 @@ const FSearch = () => {
         <div className="filters-container">
           <label style={{marginLeft:'30px'}} htmlFor="category">Category:</label>
           <select style={{marginBottom: "10px"}} className='dropbutton' id="category" value={selectedCategory} onChange={handleCategoryChange}>
-            <option value="">All categories</option>
-            <option value="people">People</option>
-            <option value="jobs">Jobs</option>
-            <option value="companies">Companies</option>
-            <option value="groups">Groups</option>
+          <option value="">All categories</option>
+            <option value="Software Engineer">Software Engineer</option>
+            <option value="Web Developer">Web Developer</option>
+            <option value="Data Scientist">Data Scientist</option>
+            <option value="Artficial Intelligence">Artficial Intelligence</option>
+            <option value="Graphic Designer">Graphic Designer</option>
+            <option value="UI/UX Designer">UI/UX Designer</option>
+            <option value="Cyber Security">Cyber Security</option>
           </select>
 
           <label htmlFor="skill">Skill:</label>
@@ -244,6 +272,9 @@ const FSearch = () => {
         </div>
       </div>
      }
+     <div><Link to='/freelancer_homepage'>
+      <button style={{margin:'30px'}} type="submit" >Return to Homepage</button>
+      </Link></div>
     </div>
     </div>
     

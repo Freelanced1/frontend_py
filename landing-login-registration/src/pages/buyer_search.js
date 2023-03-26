@@ -8,6 +8,7 @@ import language from './language.png';
 import education from './education.png';
 import certi from './certi.png';
 import portfolio from './portfoliio.png';
+import { Link } from 'react-router-dom';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 const BSearch = () => {
@@ -96,15 +97,38 @@ const BSearch = () => {
     const handleFilterSubmit = (event) => {
       setButtonPressed(true);
       event.preventDefault();	
-      let url = `https://freelancedit.azurewebsites.net/filteruserdetailsmongo/?skills=${selectedSkill}`
+      let url = `https://freelancedit.azurewebsites.net/filteruserdetailsmongo/?`
+      if (selectedSkill !== "") {
+        if (url.endsWith('?')) {
+          url+= `skills=${selectedSkill}`;
+        }
+        else {
+          url+= `&skills=${selectedSkill}`;
+        }
+      }
       if (selectedCategory !== "") {
-        url+= `&category=${selectedCategory}`;
+        if (url.endsWith('?')) {
+          url+= `category=${selectedCategory}`;
+        }
+        else {
+          url+= `&category=${selectedCategory}`;
+        }
       }
       if (selectedRating !== "") {
-        url+= `&ratings=${selectedRating}`;
+        if (url.endsWith('?')) {
+          url+= `rating=${selectedRating}`;
+        }
+        else {
+          url+= `&rating=${selectedRating}`;
+        }
       }
       if (selectedExperience!== "") {
-        url+= `&experience=${selectedExperience}`;
+        if (url.endsWith('?')) {
+          url+= `experience=${selectedExperience}`;
+        }
+        else {
+          url+= `&experience=${selectedExperience}`;
+        }
       }
       fetch(url)
           .then(response => {
@@ -155,10 +179,13 @@ const BSearch = () => {
           <label style={{marginLeft:'30px'}} htmlFor="category">Category:</label>
           <select style={{marginBottom: "10px"}} className='dropbutton' id="category" value={selectedCategory} onChange={handleCategoryChange}>
             <option value="">All categories</option>
-            <option value="people">People</option>
-            <option value="jobs">Jobs</option>
-            <option value="companies">Companies</option>
-            <option value="groups">Groups</option>
+            <option value="Software Engineer">Software Engineer</option>
+            <option value="Web Developer">Web Developer</option>
+            <option value="Data Scientist">Data Scientist</option>
+            <option value="Artficial Intelligence">Artficial Intelligence</option>
+            <option value="Graphic Designer">Graphic Designer</option>
+            <option value="UI/UX Designer">UI/UX Designer</option>
+            <option value="Cyber Security">Cyber Security</option>
           </select>
 
           <label htmlFor="skill">Skill:</label>
@@ -262,7 +289,13 @@ const BSearch = () => {
           <p>Website: <a href={searchResults[indexSelected].website} target="_blank" rel="noopener noreferrer">{searchResults[indexSelected].website}</a></p></div>
         </div></div>
       </div>
-     }</div>
+     }
+     <div>
+      <Link to='/buyer_homepage'>
+      <button style={{margin:'30px'}} type="submit" >Return to Homepage</button>
+      </Link>
+      </div>
+     </div>
     </div>
     
       </form>
