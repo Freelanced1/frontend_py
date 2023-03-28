@@ -3,7 +3,7 @@ import Iframe from 'react-iframe'
 function Iframechat() {
   return (
     <div>
-        <Iframe url="https://webchat.botframework.com/embed/chatterbot-bot/gemini?b=chatterbot-bot&s=JeurNM-7cTY.Yv7AnfwNQSftxBuLi1cyXlNZVWdxmHyGIf5G6gNQGhE&username=You"  width="340px"
+        <Iframe url="https://webchat.botframework.com/embed/chatterbot1-bot?s=UJExw-RwyxA.XhW0NB2I3Ah0a2D0oXVvSMqZhptWdya8QR8MHGYxADI"  width="340px"
         height="420px"/>
     </div>
   )
