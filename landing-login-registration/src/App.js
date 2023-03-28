@@ -17,9 +17,15 @@ import BHomePage from './pages/buyer_homepage';
 import BSearch from './pages/buyer_search';
 import BUpdateProject from './pages/buyer_update_project';
 import BDeleteProject from './pages/buyer_delete_projects';
+import GoogleOneTapLogin from './pages/GoogleOneTapLogin';
 
 
 function App() {
+
+	const [email, setEmail] = useState("");
+	const handleLogin = (email) => {
+	setEmail(email);
+};
 
 	const [BformData, setBFormData] = useState({
 		// initialize state with empty values for each field
@@ -127,7 +133,7 @@ return (
 	<Router>
 	<Routes>
 		<Route exact path='/' element={<Landing/>} />
-		<Route exact path='/login-register' element={<LoginRegister/>} />
+		<Route exact path='/login-register' element={<GoogleOneTapLogin/>} />
 		<Route exact path='/selectrole' element={<Roles/>} />
 		<Route path='/buyer_navpage1' element={<><BNavbar /><BNavPage1 BformData={BformData} BformData_mongo={BformData_mongo} handleChange_B={handleChange_B} handleChange_B_mongo={handleChange_B_mongo} addListItem_B={addListItem_B}/></>}/>
 		<Route path='/buyer_navpage2' element={<><BNavbar /><BNavPage2 BformData={BformData} BformData_mongo={BformData_mongo} handleChange_B={handleChange_B} handleChange_B_mongo={handleChange_B_mongo} addListItem_B={addListItem_B}/></>}/>
