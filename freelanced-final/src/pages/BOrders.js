@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Rating from 'react-rating';
 import logo from './freelanced_logo.gif';
 import { Navigate, useNavigate } from 'react-router-dom';
 import skills from './skills.png';
@@ -19,8 +20,10 @@ const BOrders = () => {
   const [orderplaced, setorderplaced] = useState(false);
   const email = localStorage.getItem("email");
   const [RecruiterData, setRecruiterData] = useState(null);
+  const [FreelancerData, setFreelancerData] = useState(null);
   const [UpdateBData, setUpdateBData] = useState({});
   const [UpdateFData, setUpdateFData] = useState({});
+  const [rating, setRating] = useState(0);
 
   useEffect(() => {
     console.log("useEffect called with email:", email);
@@ -34,7 +37,7 @@ const BOrders = () => {
         .then(data => {
           console.log("User data:", data);
           const id = data.id;
-          setRID(data.id)
+          setRID(data.id);
           console.log(`Sending data to https://freelancedit.azurewebsites.net/getrecruitermongo/${email}/${id}`);
           fetch(`https://freelancedit.azurewebsites.net/getrecruitermongo/${email}/${id}`)
             .then(response => {
@@ -46,10 +49,45 @@ const BOrders = () => {
               setRecruiterData(data);
             })
             .catch(error => console.error(error));
+          
+          // Fetch user data if user_mail exists
+          if (data.user_email) {
+            setFMail(data.user_email)
+            console.log(`Sending data to https://freelancedit.azurewebsites.net/getuser/${data.user_mail}`);
+            fetch(`https://freelancedit.azurewebsites.net/getuser/${data.user_mail}`)
+              .then(response => {
+                console.log(`Received data from https://freelancedit.azurewebsites.net/getuser/${data.user_mail}:`, response);
+                return response.json();
+              })
+              .then(data => {
+                console.log("User ID:", data.id);
+                setFID(data.id);
+                console.log(FID);
+                fetch(`https://freelancedit.azurewebsites.net/getusermongo/${data.user_mail}/${data.id}`)
+                  .then(response => {
+                    console.log(`Received data from https://freelancedit.azurewebsites.net/getusermongo/${data.user_mail}/${data.id}`, response);
+                    return response.json();
+                  })
+                  .then(data => {
+                    console.log("Mongo User data:", data);
+                    setFreelancerData(data)
+                    if (data.order_status == true) {setOrderSubmitStatus(true)}
+                    if (data.payment_status == true) {setPaymentStatus(true)}
+                  });
+  
+                const options = {
+                  method: 'PUT',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({'recruiter_mail': email, 'email': data.user_mail})
+                };
+              })
+              .catch(error => console.error(error));
+          }
         })
         .catch(error => console.error(error));
     }
   }, [email]);
+  
 
   // const handleChange = (e) => {
 	// 	const { id, value } = e.target;
@@ -153,9 +191,42 @@ const BOrders = () => {
         .catch(error => console.error(error));
       }
   
+      
+      const handleRatingChange = (value) => {
+        setRating(value);
+          fetch(`https://freelancedit.azurewebsites.net/getusermongo/${FMail}/${FID}`)
+              .then(response => {
+                console.log(`Received data from https://freelancedit.azurewebsites.net/getusermongo/${FMail}/${FID}`, response);
+                return response.json();
+              })
+              .then(data => {
+                console.log("Mongo User data:", data);
+                if (data.order_status == true) {setOrderSubmitStatus(true)}
+                if (data.payment_status == true) {setPaymentStatus(true)}
+              });
+
+          const options = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({'ratings': value, 'email': FMail})
+          };
+          fetch(`https://freelancedit.azurewebsites.net/updateusermongo/?objid=${FID}`,options)
+            .then(response => {
+              console.log(JSON.stringify({'ratings': value, 'email': FMail}))
+              console.log(UpdateFData)
+              console.log(response);
+              return response.json();
+            })
+            .then(data => console.log("User data updated:", data), setorderplaced(true))
+            .catch(error => console.error(error));
+      }
+
+
       if (RecruiterData === null) {
         return <p>Loading...</p>;
       }
+      if (RecruiterData.user_email){ if (FreelancerData == null)
+      {return <p> Loading...</p>};}
 
   return (
 	<div className="title"> <img className="logo-gif" src={logo} ></img>
@@ -167,6 +238,17 @@ const BOrders = () => {
 
           {!RecruiterData.user_email && <button onClick={handleSend} type="submit" style={{marginLeft:'30px', marginBottom:"10px"}} className="search-btn">Send Order</button>}
           {!RecruiterData.user_email && orderplaced && <button style={{backgroundColor:'green'}}>Order Placed</button>}
+
+          {RecruiterData.user_email && FreelancerData.order_status && 
+          <div>
+      <h2>Rate this freelancer:</h2>
+      <Rating
+        initialRating={rating}
+        onChange={handleRatingChange}
+        emptySymbol="far fa-star"
+        fullSymbol="fas fa-star"
+      />
+    </div>}
       </div>
 
       <div className='search-area'>

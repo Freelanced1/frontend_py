@@ -358,76 +358,59 @@ export function FNavPage5 ({FformData, FformData_mongo, handleChange_F, handleCh
   }, [responsemongo, responsepostgres]);
 
 
-  var handleSubmit = (event) => {
+  var handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(JSON.stringify(FformData_mongo))
-    FformData.email = FformData_mongo.email
-    
-    
-      fetch('https://freelancedit.azurewebsites.net/newusermongo/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(FformData_mongo)
-      })
-      .then(response => {
-        if (response.ok) {
-          setresponsemongo(true)
-          console.log(response);
-          console.log(responsemongo);
-          return response.json();
-        } else {
-          throw new Error('Network response was not ok');
-        }
-      })
-      .then(data => {
-        setresponsemongo(true)
-        console.log(responsemongo);
-        console.log(JSON.stringify(FformData_mongo))
-        console.log('Data sent successfully');
-      })
-
-      .catch(error => {
-        console.error('There was a problem submitting the form', error);
-      });
-    
-      
-      fetch('https://freelancedit.azurewebsites.net/newuser', {
+    console.log(JSON.stringify(FformData_mongo));
+    FformData.email = FformData_mongo.email;
+  
+    try {
+      const responsePostgres = await fetch('https://freelancedit.azurewebsites.net/newuser', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(FformData)
-      })
-      .then(response => {
-        if (response.ok) {
-          setresponsepostgres(true)
-          console.log(response);
-          console.log(responsepostgres);
-
-          return response.json();
-        } else {
-          throw new Error('Network response was not ok');
-        }
-        
-      })
-      .then(data => {
-        
-        setresponsepostgres(true)
-        console.log(responsepostgres);
-        console.log(JSON.stringify(FformData))
-        console.log('Data sent successfully');
-        console.log(responsemongo, responsepostgres)      
-        
-      })
-
-      .catch(error => {
-        console.error('There was a problem submitting the form', error);
       });
-      
-      
-};
+  
+      if (responsePostgres.ok) {
+        setresponsepostgres(true);
+        console.log(responsePostgres);
+        const data = await responsePostgres.json();
+        console.log(JSON.stringify(FformData));
+        console.log('Data sent successfully to Postgres');
+        console.log(responsemongo, responsepostgres);
+      } else {
+        throw new Error('Network response was not ok');
+      }
+    } catch (error) {
+      console.error('There was a problem submitting the form to PostgreSQL', error);
+    }
+
+    try {
+      const responseMongo = await fetch('https://freelancedit.azurewebsites.net/newusermongo/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(FformData_mongo)
+      });
+  
+      if (responseMongo.ok) {
+        setresponsemongo(true);
+        console.log(responseMongo);
+        console.log(responsemongo);
+        const data = await responseMongo.json();
+        console.log('Data sent successfully to Postgres');
+        console.log(JSON.stringify(FformData_mongo));
+      } else {
+        throw new Error('Network response was not ok');
+      }
+    } catch (error) {
+      console.error('There was a problem submitting the form to MongoDB', error);
+    }
+
+  };
+  
 
     return (
       <div className='flex-container'>

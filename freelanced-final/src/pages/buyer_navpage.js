@@ -330,63 +330,55 @@ export function BNavPage5({BformData, BformData_mongo, handleChange_B, handleCha
     }
   }, [responsemongo, responsepostgres]);
 
-  var handleSubmit = (event) => {
-      event.preventDefault();
-      BformData.email = BformData_mongo.email
-      console.log()
-      console.log(JSON.stringify(BformData_mongo))
-      
-        fetch('https://freelancedit.azurewebsites.net/newrecruitermongo/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(BformData_mongo)
-        })
-        .then(response => {
-          if (response.ok) {
-            setresponsemongo(true)
-            console.log(response)
-            return response.json();
-          } else {
-            throw new Error('Network response was not ok');
-          }
-        })
-        .then(data => {
-          console.log('Data sent successfully');
-        })
-
-        .catch(error => {
-          console.error('There was a problem submitting the form', error);
-        });
-      
-        
-        fetch('https://freelancedit.azurewebsites.net/newrecruiter', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(BformData)
-        })
-        .then(response => {
-          if (response.ok) {
-            setresponsepostgres(true)
-            console.log(response)
-            return response.json();
-          } else {
-            throw new Error('Network response was not ok');
-          }
-        })
-        .then(data => {
-          console.log('Data sent successfully');
-        })
-        
-
-        .catch(error => {
-          console.error('There was a problem submitting the form', error);
-        });
-        
+  var handleSubmit = async (event) => {
+    event.preventDefault();
+    BformData.email = BformData_mongo.email;
+    console.log();
+    console.log(JSON.stringify(BformData_mongo));
+  
+    try {
+      const responsePostgres = await fetch('https://freelancedit.azurewebsites.net/newrecruiter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(BformData)
+      });
+  
+      if (responsePostgres.ok) {
+        setresponsepostgres(true);
+        console.log(responsePostgres);
+        const data = await responsePostgres.json();
+        console.log('Data sent successfully to PostgreSQL');
+      } else {
+        throw new Error('Network response was not ok');
+      }
+    } catch (error) {
+      console.error('There was a problem submitting the form to PostgreSQL', error);
+    }
+  
+    try {
+      const responseMongo = await fetch('https://freelancedit.azurewebsites.net/newrecruitermongo/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(BformData_mongo)
+      });
+  
+      if (responseMongo.ok) {
+        setresponsemongo(true);
+        console.log(responseMongo);
+        const data = await responseMongo.json();
+        console.log('Data sent successfully to MongoDB');
+      } else {
+        throw new Error('Network response was not ok');
+      }
+    } catch (error) {
+      console.error('There was a problem submitting the form to MongoDB', error);
+    }
   };
+  
 
     return (
       <form onSubmit={handleSubmit}>
