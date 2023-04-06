@@ -194,59 +194,68 @@ const BOrders = () => {
       
       const handleRatingChange = (value) => {
         setRating(value);
-          fetch(`https://freelancedit.azurewebsites.net/getusermongo/${FMail}/${FID}`)
-              .then(response => {
-                console.log(`Received data from https://freelancedit.azurewebsites.net/getusermongo/${FMail}/${FID}`, response);
-                return response.json();
-              })
-              .then(data => {
-                console.log("Mongo User data:", data);
-                if (data.order_status == true) {setOrderSubmitStatus(true)}
-                if (data.payment_status == true) {setPaymentStatus(true)}
-              });
+          // fetch(`https://freelancedit.azurewebsites.net/getusermongo/${FMail}/${FID}`)
+          //     .then(response => {
+          //       console.log(`Received data from https://freelancedit.azurewebsites.net/getusermongo/${FMail}/${FID}`, response);
+          //       return response.json();
+          //     })
+          //     .then(data => {
+          //       console.log("Mongo User data:", data);
+          //       if (data.order_status == true) {setOrderSubmitStatus(true)}
+          //       if (data.payment_status == true) {setPaymentStatus(true)}
+          //     });
 
-          const options = {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({'ratings': value, 'email': FMail})
-          };
-          fetch(`https://freelancedit.azurewebsites.net/updateusermongo/?objid=${FID}`,options)
-            .then(response => {
-              console.log(JSON.stringify({'ratings': value, 'email': FMail}))
-              console.log(UpdateFData)
-              console.log(response);
-              return response.json();
-            })
-            .then(data => console.log("User data updated:", data), setorderplaced(true))
-            .catch(error => console.error(error));
+          // const options = {
+          //   method: 'PUT',
+          //   headers: { 'Content-Type': 'application/json' },
+          //   body: JSON.stringify({'ratings': value, 'email': FMail})
+          // };
+          // fetch(`https://freelancedit.azurewebsites.net/updateusermongo/?objid=${FID}`,options)
+          //   .then(response => {
+          //     console.log(JSON.stringify({'ratings': value, 'email': FMail}))
+          //     console.log(UpdateFData)
+          //     console.log(response);
+          //     return response.json();
+          //   })
+          //   .then(data => console.log("User data updated:", data), setorderplaced(true))
+          //   .catch(error => console.error(error));
       }
+
+      const emptyStarStyle = {
+        fontSize: '45px', // Adjust the size as desired
+        color: '#fef7eb', // Adjust the color as desired
+      };
+    
+      const fullStarStyle = {
+        fontSize: '45px', // Adjust the size as desired
+        color: '#f8e300', // Adjust the color as desired
+      };
 
 
       if (RecruiterData === null) {
         return <p>Loading...</p>;
       }
-      if (RecruiterData.user_email){ if (FreelancerData == null)
-      {return <p> Loading...</p>};}
-
+     
   return (
 	<div className="title"> <img className="logo-gif" src={logo} ></img>
       <form>
         <div className="search-container" style={{paddingTop:'10px', paddingLeft:'30px'}}>
           <h1>Place Orders</h1>
-          {RecruiterData.user_email? (<p>Order Placed to {RecruiterData.user_email}</p>): (
+          {RecruiterData.user_email? (<h1>Order Placed to {RecruiterData.user_email}</h1>): (
           <input style={{border:'groove'}} type="text"onChange={handleFmail} value={FMail} placeholder="Enter email of freelancer" />)}
 
           {!RecruiterData.user_email && <button onClick={handleSend} type="submit" style={{marginLeft:'30px', marginBottom:"10px"}} className="search-btn">Send Order</button>}
           {!RecruiterData.user_email && orderplaced && <button style={{backgroundColor:'green'}}>Order Placed</button>}
 
-          {RecruiterData.user_email && FreelancerData.order_status && 
+          {RecruiterData.user_email && 
           <div>
+            <br></br>
       <h2>Rate this freelancer:</h2>
       <Rating
         initialRating={rating}
+        emptySymbol={<span style={emptyStarStyle}>&#9734;</span>}
+        fullSymbol={<span style={fullStarStyle}>&#9733;</span>}
         onChange={handleRatingChange}
-        emptySymbol="far fa-star"
-        fullSymbol="fas fa-star"
       />
     </div>}
       </div>
